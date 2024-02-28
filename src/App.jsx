@@ -1,5 +1,5 @@
 import { Header } from "./cmps/Header"
-import { EmailIndex } from "./cmps/EmailIndex"
+import { EmailIndex } from "./pages/EmailIndex"
 import { Sidebar } from "./cmps/SideBar"
 
 

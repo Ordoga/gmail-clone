@@ -1,0 +1,10 @@
+.email-list {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.email-list li {
+    border: 2px solid red;
+    height: 40px;
+}

@@ -6,13 +6,11 @@ export const emailService = {
     getById,
     removeById,
     save,
-    createEmail
+    createEmail,
+    createEmails
 }
 
 const STORAGE_KEY = 'emails'
-
-_createEmails()
-
 
 async function query() {
     const emails = await storageService.query(STORAGE_KEY)
@@ -60,7 +58,7 @@ function createEmail(subject= 'No Subject Entered', body='', isRead=false, isSta
     }
 }
 
-function _createEmails() {
+function createEmails() {
     let emails = utilService.loadFromStorage(STORAGE_KEY)
     if(!emails || emails.length < 4) {
         emails = [
