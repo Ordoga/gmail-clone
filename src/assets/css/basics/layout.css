@@ -1,7 +1,10 @@
 .main-app {
-    display: grid;
-    grid-template-columns: 1fr 200px;
-    grid-template-rows: 64px 1fr;
     min-height: 100vh;
- 
+    display: flex;
+    flex-direction: column;
+}
+
+.main-section {
+    display: flex;
+    flex: 1;
 }

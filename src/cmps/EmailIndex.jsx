@@ -3,7 +3,7 @@
 export function EmailIndex() {
     return (
         <>
-            <div className="email-index"></div>
+            <div className="email-index">sjdfklsjdlfk</div>
         </>
     )
 }

@@ -9,8 +9,10 @@ export function App() {
     return (
         <section className='main-app'>
             <Header/>
-            <EmailIndex/>
-            <Sidebar/>
+            <div className="main-section">
+                <EmailIndex/>
+                <Sidebar/>
+            </div>
         </section>
     )
 }
