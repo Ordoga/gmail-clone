@@ -79,20 +79,6 @@ input {
 }
 
 .main-app {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-
-.main-app main {
-    flex-grow: 1;
-    width: 100%;
-}
-
-.main-app > footer {
-    background-color: #111;
-    color: white;
 }
 
 

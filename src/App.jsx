@@ -1,24 +1,17 @@
+import { Header } from "./cmps/Header"
+import { EmailIndex } from "./cmps/EmailIndex"
+import { Sidebar } from "./cmps/SideBar"
+
+
 
 export function App() {
 
     return (
         <section className='main-app'>
-            <header className="app-header">
-                <section className="container">
-                    <h1>Gmail Clone</h1>
-                </section>
-            </header>
-
-            <main className='container'>
-
-            </main>
-
-            <footer>
-
-            </footer>
+            <Header/>
+            <EmailIndex/>
+            <Sidebar/>
         </section>
-
-
     )
 }
 
