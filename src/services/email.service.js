@@ -7,13 +7,28 @@ export const emailService = {
     removeById,
     save,
     createEmail,
-    createEmails
+    createEmails,
+    getDefaultFilter
 }
+
+const loggedinUser = { email: 'user@appsus.com', fullname: 'Mahatma Appsus' }
 
 const STORAGE_KEY = 'emails'
 
-async function query() {
-    const emails = await storageService.query(STORAGE_KEY)
+async function query(filterBy) {
+    let emails = await storageService.query(STORAGE_KEY)
+    if(filterBy){
+        // Takes the corresponding fields from filter Object
+        let { status, txt, isRead } = filterBy
+        emails = emails.filter(email => ((email.subject.toLowerCase().includes(txt.toLowerCase())) || 
+                                         (email.body.toLowerCase().includes(txt.toLowerCase()))))
+
+
+        // TODO - add more filters
+        
+    }
+
+
     return emails
 }
 
@@ -56,6 +71,16 @@ function createEmail(subject= 'No Subject Entered', body='', isRead=false, isSta
         from,
         to
     }
+}
+
+function getDefaultFilter() {
+    return (
+        {
+            status: 'inbox',
+            txt: '',
+            isRead: null
+        }
+    )
 }
 
 function createEmails() {
