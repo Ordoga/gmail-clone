@@ -29,6 +29,9 @@ export function EmailIndex() {
     return (
         <>
             <div className="email-index">
+                <div className="page-nav"></div>
+                <div className="folders"></div>
+                
                 <EmailList emails={emails}/>
             </div>
         </>

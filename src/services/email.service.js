@@ -37,7 +37,7 @@ async function removeById(id) {
 
 async function save(emailToSave) {
     // Email is database already -> Update email in database
-    if(robotToSave.id){
+    if(emailToSave.id){
         return storageService.put(STORAGE_KEY,emailToSave)
         // Email is not in database yet -> Add new email and index it
     } else {

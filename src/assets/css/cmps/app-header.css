@@ -14,12 +14,12 @@
 
 .logo-section {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
 
     width: 238px;
     height: 48px;
-    padding-left: 30px;
+    padding-right: 30px;
 }    
 
 .fake-menu-button {
@@ -31,15 +31,35 @@
 }
 
 
-.searchbar {
+.search-bar {
     background-color: blueviolet;
     display: flex;
     flex: 1;
+    padding-left: 10px;
+    padding-right: 30px;
 }    
 
 
+/* Change to non-hard-coded widths */
 
-.left-section {
+.nav-links {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 220px;
+    justify-content: space-between;
+    margin-right: 15px;
+}
+
+.search-field {
+    background-color: #e91e63;
+    height: 46px;
+    width: 720px;
+    
+}
+
+
+.right-section {
     display: flex;
     align-items: center;
 }

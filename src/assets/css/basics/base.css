@@ -15,10 +15,12 @@ body {
         "Droid Sans", "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    max-width: 100%;
+
 }
 
 img {
-    max-width: 100%;
+    max-width: 100vh;
 }
 
 h1,

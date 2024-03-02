@@ -13,13 +13,13 @@ export function EmailList({emails}) {
     return (
         <>
             <ul className="email-list">
-                {
-                    emails.map(email =>
-                        <li>
-                            <EmailPreview email={email}/>
-                        </li>
-                    )
-                }
+                    {
+                        emails.map(email =>
+                            <li key={email._id}>
+                                <EmailPreview email={email}/>
+                            </li>
+                        )
+                    }
             </ul>
         </>
     )

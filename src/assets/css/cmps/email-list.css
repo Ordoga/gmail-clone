@@ -7,4 +7,5 @@
 .email-list li {
     border: 2px solid red;
     height: 40px;
+    display: flex;
 }
