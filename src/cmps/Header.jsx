@@ -4,7 +4,10 @@ import { useState } from 'react'
 
 // Assets
 import GmailLogo from '/gmail_logo.png'
-
+import Hamburger from '/hamburger.png'
+import QuestionMark from '/questionmark.png'
+import Settings from '/settings.png'
+import Dots from '/9dots.png'
 
 // Props from App.jsx
 export function Header( {textToFilterBy, setTextToFilterBy}) {
@@ -24,8 +27,10 @@ export function Header( {textToFilterBy, setTextToFilterBy}) {
         <header className="app-header">
             <div className="header">
                 <div className="logo-section">
-                    <div className="fake-menu-button"></div>
-                    <img src={GmailLogo} height='40px'></img>
+                    <div className="menu-button">
+                        <img src={Hamburger} className='white-icon'></img>
+                    </div>
+                    <img src={GmailLogo} height='40px' style={{fill: 'red'}}></img>
                 </div>
 
                 <div>
@@ -49,9 +54,9 @@ export function Header( {textToFilterBy, setTextToFilterBy}) {
 
 
                 <div className="right-section">
-                    <div className="icon4 icon">4</div>
-                    <div className="icon3 icon">3</div>
-                    <div className="icon2 icon">2</div>
+                    <div className="small-icon-container"><img className="small-icon-img" src={QuestionMark}></img></div>
+                    <div className="small-icon-container"><img className="small-icon-img" src={Settings}></img></div>
+                    <div className="medium-icon-container"><img className="medium-icon-img" src={Dots}></img></div>
                     <div className="icon1 icon">1</div>
                 </div>
             </div>

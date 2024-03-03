@@ -1,5 +1,5 @@
 .header {
-    background: #2b3945;
+    background: (0,0,0,0);
     display: flex;
 
     align-items: center;
@@ -22,12 +22,24 @@
     padding-right: 30px;
 }    
 
-.fake-menu-button {
-    background-color: #e91e63;
+.menu-button {
+    display: flex;
+    background-color: (0,0,0,0);
     height: 48px;
     width: 48px;
     margin-left: 4px;
     margin-right: 4px;
+    fill: rgb(255, 255, 255);
+    
+    align-items: center;
+    justify-content: center;
+
+}
+
+.white-icon {
+    height: 12px;
+    width: 18px;
+    fill: rgb(255, 255, 255);
 }
 
 
@@ -43,6 +55,7 @@
 /* Change to non-hard-coded widths */
 
 .nav-links {
+    color: white;
     display: flex;
     align-items: center;
     height: 100%;
@@ -64,23 +77,29 @@
     align-items: center;
 }
 
-.icon {
-    border: 1px solid #e91e63;
+.right-section .small-icon-container {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    margin: 2px;
 }
 
-.icon1 {
+.right-section img {
+    height: 24px;
+    width: 24px;
+}
+
+
+.right-section .medium-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 48px;
     height: 48px;
 }
-.icon2 {
-    width: 48px;
-    height: 48px;
+
+.right-section img {
+    height: 28px;
+    width: 28px;
 }
-.icon3 {
-    width: 40px;
-    height: 40px;
-}
-.icon4 {
-    width: 40px;
-    height: 40px;
-}
+

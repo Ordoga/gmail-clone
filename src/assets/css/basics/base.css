@@ -84,3 +84,8 @@ a.active {
     color: rgb(84, 17, 147);
     font-weight: 600;
 }
+
+body {
+    background-color: rgb(44, 44, 44);
+}
+
