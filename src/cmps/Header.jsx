@@ -1,11 +1,25 @@
 // Liabaries
-import {NavLink} from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import { useState } from 'react'
 
 // Assets
 import GmailLogo from '/gmail_logo.png'
 
 
-export function Header() {
+
+export function Header( {textToFilterBy, setTextToFilterBy}) {
+
+
+    function handleOnChange(ev){
+        const txt = ev.target.value
+        setTextToFilterBy(() => txt)
+    }
+
+
+    function handleOnSubmit(ev){
+        ev.preventDefault()
+    }
+
     return (
         <>
         <header className="app-header">
@@ -15,7 +29,7 @@ export function Header() {
                     <img src={GmailLogo} height='40px'></img>
                 </div>
 
-                <div className="search-bar">
+                <div>
                     <nav>
                         <div className='nav-links'>
                             <NavLink to="/homepage">HomePage</NavLink>
@@ -23,10 +37,17 @@ export function Header() {
                             <NavLink to="/">MailBox</NavLink>
                         </div>
                     </nav>
+                </div>
+
+                <div className="search-bar">
                     <div className='search-field'>
-                        --------------------------------
+                        <form onSubmit={handleOnSubmit}>
+                            <input type="text" name="text-to-search" value={textToFilterBy} onChange={handleOnChange} placeholder='Search Emails'/>
+                        </form>
                     </div>
                 </div>
+
+
 
                 <div className="right-section">
                     <div className="icon4 icon">4</div>

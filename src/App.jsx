@@ -1,5 +1,7 @@
 // Libaries
 import { Route, HashRouter as Router, Routes } from 'react-router-dom'
+import { useState } from 'react'
+
 
 // Pages
 import { HomePage } from "./pages/HomePage"
@@ -14,15 +16,16 @@ import { Header } from "./cmps/Header"
 
 export function App() {
 
+    const [textToFilterBy, setTextToFilterBy] = useState('')
+
     return (
         <Router>
             <section className='main-app'>
-                <Header/>
-
-
+                <Header textToFilterBy={textToFilterBy} setTextToFilterBy={setTextToFilterBy}/>
+                {console.log(`From App: ${textToFilterBy}`)}
                 <div className="main-section">
                     <Routes>
-                        <Route path="/" element={<MailBox/>} />
+                        <Route path="/" element={<MailBox textToFilterBy={textToFilterBy}/>} />
                         <Route path="/homepage" element={<HomePage/>} />
                         <Route path="/about" element={<AboutUs/>} />
                     </Routes>

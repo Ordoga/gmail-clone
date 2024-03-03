@@ -21,8 +21,8 @@ async function query(filterBy) {
         // Takes the corresponding fields from filter Object
         let { status, txt, isRead } = filterBy
         emails = emails.filter(email => ((email.subject.toLowerCase().includes(txt.toLowerCase())) || 
-                                         (email.body.toLowerCase().includes(txt.toLowerCase()))))
-
+                                         (email.body.toLowerCase().includes(txt.toLowerCase()))    ||
+                                         (email.from.toLowerCase().includes(txt.toLowerCase()))    ))
 
         // TODO - add more filters
         

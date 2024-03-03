@@ -3,22 +3,24 @@ import { useEffect, useState } from "react"
 import { EmailList } from "../cmps/EmailList"
 import { emailService } from "../services/email.service"
 
-export function EmailIndex( {} ) {
+
+// TODO - change to all filters
+
+export function EmailIndex( {filterByTxt} ) {
 
     const [emails, setEmails] = useState(null)
-    const [filterBy, setFilterBy] = useState(emailService.getDefaultFilter())
+    const [filterBy, setFilterBy] = useState(filterByTxt? filterByTxt : emailService.getDefaultFilter())
 
 
     // Load Emails on Component mount, and every change to Filter By to re-filter
     useEffect(() => {
-        loadEmails()
-    }, [filterBy])
 
+        console.log(`filterByTxt: ${filterByTxt.txt}`)
 
-    function onSetFilter(fieldsToUpdate) {
-        setFilterBy(prevFilter => ({ ...prevFilter, ...fieldsToUpdate }))
-    }
+        setFilterBy(() => (filterByTxt))
 
+        loadEmails(filterBy)
+    }, [filterByTxt])
 
 
     async function loadEmails(){
@@ -29,7 +31,6 @@ export function EmailIndex( {} ) {
             console.log(`Error in loading: ${err}`)
         }
     }
-
 
 
     emailService.createEmails()
