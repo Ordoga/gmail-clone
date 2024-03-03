@@ -6,18 +6,17 @@ import { useState } from 'react'
 import GmailLogo from '/gmail_logo.png'
 
 
-
+// Props from App.jsx
 export function Header( {textToFilterBy, setTextToFilterBy}) {
-
 
     function handleOnChange(ev){
         const txt = ev.target.value
         setTextToFilterBy(() => txt)
     }
 
-
     function handleOnSubmit(ev){
         ev.preventDefault()
+        console.log(ev)
     }
 
     return (

@@ -1,6 +1,8 @@
 import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 
+
+
 export const emailService = {
     query,
     getById,
@@ -24,8 +26,26 @@ async function query(filterBy) {
                                          (email.body.toLowerCase().includes(txt.toLowerCase()))    ||
                                          (email.from.toLowerCase().includes(txt.toLowerCase()))    ))
 
+        switch(status) {
+            case 'inbox':
+                emails = emails.filter(email => email.to === loggedinUser.email)
+                break;   
+            case 'star':
+                console.log('tried')
+                emails = emails.filter(email => email.isStarred)
+                break;
+            case 'trash':
+                emails = emails.filter(email => email.removedAt !== null)
+                break;
+
+            case 'sent':
+                emails = emails.filter(email => email.from === loggedinUser.email)
+                break;
+            default:
+
+        }
+
         // TODO - add more filters
-        
     }
 
 
@@ -85,7 +105,7 @@ function getDefaultFilter() {
 
 function createEmails() {
     let emails = utilService.loadFromStorage(STORAGE_KEY)
-    if(!emails || emails.length < 4) {
+    if(!emails || emails.length < 5) {
         emails = [
             {
                 _id: 'e1', 
@@ -96,7 +116,7 @@ function createEmails() {
                 sentAt: 1551133930594,
                 removedAt: null,
                 from: 'toyota@japan.com',
-                to: 'ordoga@gmail.com'
+                to: 'user@appsus.com'
             },
             {
                 _id: 'e2', 
@@ -107,7 +127,7 @@ function createEmails() {
                 sentAt: 1551133345734,
                 removedAt: null,
                 from: 'coding@academy.com',
-                to: 'ordoga@gmail.com'
+                to: 'user@appsus.com'
             },
             {
                 _id: 'e3', 
@@ -118,7 +138,7 @@ function createEmails() {
                 sentAt: 15511339238024,
                 removedAt: null,
                 from: 'apple@apple.com',
-                to: 'ordoga@gmail.com'
+                to: 'user@appsus.com'
             },
             {
                 _id: 'e4', 
@@ -129,7 +149,18 @@ function createEmails() {
                 sentAt: 1551133000000,
                 removedAt: null,
                 from: 'google@gmail.com',
-                to: 'ordoga@gmail.com'
+                to: 'user@appsus.com'
+            },
+            {
+                _id: 'e5', 
+                subject: 'I want an hamburger',
+                body: 'With Cheddar please',
+                isRead: true,
+                isStarred: true,
+                sentAt: 155113300000134,
+                removedAt: null,
+                from: 'user@appsus.com',
+                to: 'wolt@service.co.il'
             }
         ]
         utilService.saveToStorage(STORAGE_KEY,emails)

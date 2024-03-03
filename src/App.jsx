@@ -21,8 +21,9 @@ export function App() {
     return (
         <Router>
             <section className='main-app'>
+
                 <Header textToFilterBy={textToFilterBy} setTextToFilterBy={setTextToFilterBy}/>
-                {console.log(`From App: ${textToFilterBy}`)}
+
                 <div className="main-section">
                     <Routes>
                         <Route path="/" element={<MailBox textToFilterBy={textToFilterBy}/>} />

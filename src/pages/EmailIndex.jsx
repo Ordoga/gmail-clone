@@ -6,21 +6,19 @@ import { emailService } from "../services/email.service"
 
 // TODO - change to all filters
 
-export function EmailIndex( {filterByTxt} ) {
+export function EmailIndex( { filterBy, setFilterBy } ) {
 
     const [emails, setEmails] = useState(null)
-    const [filterBy, setFilterBy] = useState(filterByTxt? filterByTxt : emailService.getDefaultFilter())
+    const [readyFilter, setReadyFilter] = useState(filterBy? filterBy : emailService.getDefaultFilter())
 
 
     // Load Emails on Component mount, and every change to Filter By to re-filter
     useEffect(() => {
 
-        console.log(`filterByTxt: ${filterByTxt.txt}`)
-
-        setFilterBy(() => (filterByTxt))
-
+        setFilterBy(() => (filterBy))
         loadEmails(filterBy)
-    }, [filterByTxt])
+
+    }, [filterBy])
 
 
     async function loadEmails(){
