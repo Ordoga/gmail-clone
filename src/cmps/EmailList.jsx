@@ -20,6 +20,7 @@ export function EmailList({emails}) {
                             </li>
                         )
                     }
+                    <div className="list-end"></div>
             </ul>
         </>
     )

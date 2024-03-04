@@ -2,18 +2,18 @@
     display: grid;
 
     /* fix overflow to the right */
-    grid-template-columns: 103px 168px 1fr auto;
+    grid-template-columns: 60px 168px minmax(300px, 1fr) 60px;
 
     grid-template-rows: 40px;
     width: 100%;
     background-color: rgb(255, 255, 255);
     align-items: center;
-
 }
 
 .email-preview:hover{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     z-index: 1;
+    cursor: pointer;
 }
 .email-preview .line-part {
 
@@ -61,21 +61,28 @@
     grid-template-rows: 40px;
     align-items: center;
     text-overflow: ellipsis;
+
+    display: grid;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .email-preview .subject-body .subject {
     display: grid;
-    overflow: hidden;
     white-space: nowrap;
+    text-overflow: ellipsis;
+
 
 }
 
 .email-preview .subject-body .body {
     display: grid;
     white-space: nowrap;
-
     text-overflow: ellipsis;
 }
+
 .email-preview .date {
     display: grid;
+    margin-left: 16px;
 }

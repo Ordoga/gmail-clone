@@ -22,35 +22,41 @@ async function query(filterBy) {
     if(filterBy){
         // Takes the corresponding fields from filter Object
         let { status, txt, isRead } = filterBy
-        emails = emails.filter(email => ((email.subject.toLowerCase().includes(txt.toLowerCase())) || 
-                                         (email.body.toLowerCase().includes(txt.toLowerCase()))    ||
-                                         (email.from.toLowerCase().includes(txt.toLowerCase()))    ))
-
-        switch(status) {
-            case 'inbox':
-                emails = emails.filter(email => email.to === loggedinUser.email)
-                break;   
-            case 'star':
-                console.log('tried')
-                emails = emails.filter(email => email.isStarred)
-                break;
-            case 'trash':
-                emails = emails.filter(email => email.removedAt !== null)
-                break;
-
-            case 'sent':
-                emails = emails.filter(email => email.from === loggedinUser.email)
-                break;
-            default:
-
-        }
-
-        // TODO - add more filters
+        console.log(filterBy)
+        emails = filterByTxt(emails, txt)
+        emails = filterByFolder(emails, status)
     }
+        // TODO - add more filters
+    return emails
+}
 
+function filterByFolder(emails, status){
+    switch(status) {
+        case 'inbox':
+            emails = emails.filter(email => email.to === loggedinUser.email)
+            break;   
+        case 'star':
+            emails = emails.filter(email => email.isStarred)
+            break;
+        case 'trash':
+            emails = emails.filter(email => email.removedAt !== null)
+            break;
+        case 'sent':
+            emails = emails.filter(email => email.from === loggedinUser.email)
+            break;
+        default:
+    }
+    return emails
+}
+
+function filterByTxt(emails, txt) {
+    emails = emails.filter(email => ((email.subject.toLowerCase().includes(txt.toLowerCase())) || 
+    (email.body.toLowerCase().includes(txt.toLowerCase()))    ||
+    (email.from.toLowerCase().includes(txt.toLowerCase()))    ))
 
     return emails
 }
+
 
 async function getById(id) {
     try {

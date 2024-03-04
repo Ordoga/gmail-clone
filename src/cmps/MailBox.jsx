@@ -21,7 +21,7 @@ export function MailBox({ textToFilterBy }) {
         <>
             {/* // TODO : Check if all props are nessesary */}
 
-            <EmailFilter  filterBy={filterBy} setFilterBy={setFilterBy}/>
+            <EmailFilter  filterBy={filterBy} setFilterBy={setFilterBy} />
 
             <Sidebar filterBy={filterBy} setFilterBy={setFilterBy} />
 

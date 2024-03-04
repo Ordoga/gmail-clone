@@ -1,25 +1,23 @@
 import React, {useEffect, useState} from 'react'
 
 
-
-
 export function Sidebar({ filterBy, setFilterBy }) {
 
 
     function handleInboxClicked(){
-        setFilterBy(prevFilter => ( {...filterBy, status:'inbox'} ))
+        setFilterBy(() => ( {...filterBy, status:'inbox'} ))
     }
     
     function handleStarredClicked(){
-        setFilterBy(prevFilter => ( {...filterBy, status:'star'} ))
+        setFilterBy(() => ( {...filterBy, status:'star'} ))
     }
     
     function handleTrashClicked(){
-        setFilterBy(prevFilter => ( {...filterBy, status:'trash'} ))
+        setFilterBy(() => ( {...filterBy, status:'trash'} ))
     }
     
     function handleSentClicked(){
-        setFilterBy(prevFilter => ( {...filterBy, status:'sent'} ))
+        setFilterBy(() => ( {...filterBy, status:'sent'} ))
     }
 
 

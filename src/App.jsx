@@ -6,7 +6,7 @@ import { useState } from 'react'
 // Pages
 import { HomePage } from "./pages/HomePage"
 import { AboutUs } from "./pages/AboutUs"
-import { MailBox } from "./cmps/MailBox"
+import { EmailIndex } from "./pages/EmailIndex"
 
 // Components
 import { Header } from "./cmps/Header"
@@ -16,17 +16,16 @@ import { Header } from "./cmps/Header"
 
 export function App() {
 
-    const [textToFilterBy, setTextToFilterBy] = useState('')
 
     return (
         <Router>
             <section className='main-app'>
 
-                <Header textToFilterBy={textToFilterBy} setTextToFilterBy={setTextToFilterBy}/>
+                <Header/>
 
                 <div className="main-section">
                     <Routes>
-                        <Route path="/" element={<MailBox textToFilterBy={textToFilterBy}/>} />
+                        <Route path="/" element={<EmailIndex/>} />
                         <Route path="/homepage" element={<HomePage/>} />
                         <Route path="/about" element={<AboutUs/>} />
                     </Routes>

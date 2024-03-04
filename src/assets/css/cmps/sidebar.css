@@ -8,10 +8,11 @@
 }
 
 .sidebar-content {
-    color: white;
+    color: rgb(0, 0, 0);
     display: flex;
     flex-direction: column;
     width: 100%;
+    min-width: 256px;
     align-items:  center;
 
     padding-top: 20px;
