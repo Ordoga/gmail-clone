@@ -1,23 +1,19 @@
 import React, {useEffect, useState} from 'react'
 
 
-export function Sidebar({ filterBy, setFilterBy }) {
+export function Sidebar({ filterBy, onSetFilter }) {
+
+    const [currentFolder, setCurrentFolder] = useState(filterBy)
+    useEffect(() => {
+        console.log(filterBy)
+        onSetFilter(currentFolder)
+    },[currentFolder])
 
 
-    function handleInboxClicked(){
-        setFilterBy(() => ( {...filterBy, status:'inbox'} ))
-    }
-    
-    function handleStarredClicked(){
-        setFilterBy(() => ( {...filterBy, status:'star'} ))
-    }
-    
-    function handleTrashClicked(){
-        setFilterBy(() => ( {...filterBy, status:'trash'} ))
-    }
-    
-    function handleSentClicked(){
-        setFilterBy(() => ( {...filterBy, status:'sent'} ))
+
+    function handleFolderClick(newStatus){
+        const status = {status:newStatus}
+        setCurrentFolder((prevFolder) => ( status ))
     }
 
 
@@ -25,10 +21,10 @@ export function Sidebar({ filterBy, setFilterBy }) {
         <>
             <div className="sidebar-container">
                 <div className="sidebar-content">
-                    <li><a onClick={handleInboxClicked}>Inbox</a></li>
-                    <li><a onClick={handleStarredClicked}>Starred</a></li>
-                    <li><a onClick={handleTrashClicked}>Trash</a></li>
-                    <li><a onClick={handleSentClicked}>Sent</a></li>
+                    <li><a onClick={() => handleFolderClick('inbox')}>Inbox</a></li>
+                    <li><a onClick={() => handleFolderClick('star')}>Starred</a></li>
+                    <li><a onClick={() => handleFolderClick('trash')}>Trash</a></li>
+                    <li><a onClick={() => handleFolderClick('sent')}>Sent</a></li>
                 </div>
             </div>
         </>

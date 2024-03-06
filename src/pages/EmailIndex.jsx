@@ -29,6 +29,11 @@ export function EmailIndex() {
     }, [filterBy])
 
 
+    function onSetFilter(fieldsToUpdate){
+        setFilterBy((prevFilter) => ({...prevFilter,...fieldsToUpdate}))
+    }
+
+
     async function loadEmails(){
         try {
             const emails = await emailService.query(filterBy)
@@ -41,15 +46,18 @@ export function EmailIndex() {
 
     emailService.createEmails()
 
+
+    const { txt, status } = filterBy
+
     if (!emails) return <div>Loading..</div>
     return (
         <>
             <div className="email-index">
 
-                <Sidebar filterBy={filterBy} setFilterBy={setFilterBy}/>
+                <Sidebar filterBy={ {status} } onSetFilter={onSetFilter}/>
 
                 <div className="main-app-section">
-                    <EmailFilter setFilterBy={setFilterBy}/>
+                    <EmailFilter filterBy={{txt}} onSetFilter={onSetFilter}/>
                     {params.emailId? <EmailDetails/> : <EmailList emails={emails} setFilterBy={setFilterBy}/>}
                 </div>
             </div>
