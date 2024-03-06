@@ -21,13 +21,11 @@ export function App() {
         <Router>
             <section className='main-app'>
 
-                <Header/>
+                {/* <Header/> */}
 
                 <div className="main-section">
                     <Routes>
                         <Route path="/" element={<EmailIndex/>} />
-                        <Route path="/homepage" element={<HomePage/>} />
-                        <Route path="/about" element={<AboutUs/>} />
                     </Routes>
                 </div>
             </section>

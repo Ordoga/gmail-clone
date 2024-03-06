@@ -2,7 +2,7 @@
     display: grid;
 
     /* fix overflow to the right */
-    grid-template-columns: 60px 168px minmax(300px, 1fr) 60px;
+    grid-template-columns: 60px 168px minmax(300px, 1fr) 100px;
 
     grid-template-rows: 40px;
     width: 100%;
@@ -85,4 +85,5 @@
 .email-preview .date {
     display: grid;
     margin-left: 16px;
+
 }

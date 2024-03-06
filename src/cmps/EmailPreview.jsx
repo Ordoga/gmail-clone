@@ -1,4 +1,4 @@
-
+import { utilService } from "../services/util.service"
 
 export function EmailPreview({ email }) {
     return (
@@ -18,7 +18,7 @@ export function EmailPreview({ email }) {
                 <div className="body">{email.body}</div>
             </div>
 
-            <div className="date">{email.sentAt}</div>
+            <div className="date">{utilService.formatDate(email.sentAt)}</div>
             
         </div>
     )

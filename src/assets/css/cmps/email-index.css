@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: auto 1fr;
     overflow-y: hidden;
-
+    padding-right: 16px;
 }
 
 
