@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState} from "react"
+import { useParams } from "react-router"
 
 import { Sidebar } from "../cmps/SideBar"
 
 import { EmailList } from "../cmps/EmailList"
 import { emailService } from "../services/email.service"
 import { EmailFilter } from "../cmps/EmailFilter"
+import { EmailDetails } from "../cmps/EmailDetails"
 
 
 // TODO - change to all filters
@@ -14,6 +16,8 @@ export function EmailIndex() {
     const [emails, setEmails] = useState(null)
 
     const [filterBy, setFilterBy] = useState(emailService.getDefaultFilter())
+
+    const params = useParams()
 
     // Load Emails on Component mount, and every change to Filter By to re-filter
 
@@ -46,7 +50,7 @@ export function EmailIndex() {
 
                 <div className="main-app-section">
                     <EmailFilter setFilterBy={setFilterBy}/>
-                    <EmailList emails={emails}/>
+                    {params.emailId? <EmailDetails/> : <EmailList emails={emails} setFilterBy={setFilterBy}/>}
                 </div>
             </div>
         </>

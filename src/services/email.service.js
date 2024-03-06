@@ -59,7 +59,6 @@ function filterByTxt(emails, txt) {
 
 
 async function getById(id) {
-
     try {
         var email = await storageService.get(STORAGE_KEY,id)
         return email

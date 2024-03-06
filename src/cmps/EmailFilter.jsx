@@ -29,7 +29,6 @@ export function EmailFilter({ filterBy, setFilterBy} ){
                         <input type="text" name="text-to-search" onChange={handleOnChange} placeholder='Search Emails'/>
                     </form>
                 </div>
-                <div className="sorting"></div>
             </div>
         </>
 

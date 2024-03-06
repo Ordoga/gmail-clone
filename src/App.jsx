@@ -26,8 +26,9 @@ export function App() {
 
                 <div className="main-section">
                     <Routes>
-                        <Route path="/" element={<EmailIndex/>} />
-                        <Route path="/:emailId" element={<EmailDetails/>} />
+                        <Route path="/" element={<EmailIndex/>} >
+                            <Route path="/:emailId" element={<EmailDetails/>} />
+                        </Route>
                     </Routes>
 
                 </div>

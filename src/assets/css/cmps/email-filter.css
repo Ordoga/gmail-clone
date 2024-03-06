@@ -52,5 +52,5 @@
     height: 30px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    
+    border-bottom: 1px solid white;
 }
