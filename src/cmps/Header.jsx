@@ -16,13 +16,13 @@ export function Header() {
                 </div> */}
 
                 
-                    
-                        <div className='nav-links'>
-                            <NavLink to="/homepage">HomePage</NavLink>
-                            <NavLink to="/about">About Us</NavLink>
-                            <NavLink to="/">MailBox</NavLink>
-                        </div>
-                    
+            
+                <div className='nav-links'>
+                    <NavLink to="/homepage">HomePage</NavLink>
+                    <NavLink to="/about">About Us</NavLink>
+                    <NavLink to="/">MailBox</NavLink>
+                </div>
+            
                 
 
 

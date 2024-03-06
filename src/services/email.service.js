@@ -10,7 +10,8 @@ export const emailService = {
     save,
     createEmail,
     createEmails,
-    getDefaultFilter
+    getDefaultFilter,
+    getFilterFromParams
 }
 
 const loggedinUser = { email: 'user@appsus.com', fullname: 'Mahatma Appsus' }
@@ -28,6 +29,15 @@ async function query(filterBy) {
     }
         // TODO - add more filters
     return emails
+}
+
+function getFilterFromParams(searchParams) {
+    const defaultFilter = getDefaultFilter()
+    const filterBy = {}
+    for (const field in defaultFilter) {
+        filterBy[field] = searchParams.get(field) || defaultFilter[field]
+    }
+    return filterBy
 }
 
 function filterByFolder(emails, status){

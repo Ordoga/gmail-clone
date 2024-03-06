@@ -29,7 +29,7 @@ export function EmailFilter({ filterBy, onSetFilter} ){
             <div className="email-filter">
                 <div className='search-field'>
                     <form onSubmit={handleOnSubmit}>
-                        <input type="text" name="txt" onChange={handleOnChange} placeholder='Search Emails'/>
+                        <input type="text" name="txt" value={filterBy.txt} onChange={handleOnChange} placeholder='Search Emails'/>
                     </form>
                 </div>
             </div>
