@@ -59,6 +59,7 @@ function filterByTxt(emails, txt) {
 
 
 async function getById(id) {
+
     try {
         var email = await storageService.get(STORAGE_KEY,id)
         return email
@@ -78,7 +79,7 @@ async function removeById(id) {
 
 async function save(emailToSave) {
     // Email is database already -> Update email in database
-    if(emailToSave.id){
+    if(emailToSave._id){
         return storageService.put(STORAGE_KEY,emailToSave)
         // Email is not in database yet -> Add new email and index it
     } else {

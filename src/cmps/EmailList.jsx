@@ -1,10 +1,13 @@
+import { useEffect } from "react"
 import { EmailPreview } from "./EmailPreview"
 
 export function EmailList({emails}) {
 
 
 
-
+    useEffect(() => {
+        console.log(emails)
+    }, [])
 
     if(!emails){
         return null

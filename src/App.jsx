@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { HomePage } from "./pages/HomePage"
 import { AboutUs } from "./pages/AboutUs"
 import { EmailIndex } from "./pages/EmailIndex"
+import { EmailDetails } from './cmps/EmailDetails'
 
 // Components
 import { Header } from "./cmps/Header"
@@ -26,7 +27,9 @@ export function App() {
                 <div className="main-section">
                     <Routes>
                         <Route path="/" element={<EmailIndex/>} />
+                        <Route path="/:emailId" element={<EmailDetails/>} />
                     </Routes>
+
                 </div>
             </section>
         </Router>
