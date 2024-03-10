@@ -2,7 +2,7 @@
     display: grid;
 
     /* fix overflow to the right */
-    grid-template-columns:  60px 168px minmax(300px, 1fr) 100px;
+    grid-template-columns:  150px 168px minmax(300px, 1fr) 100px;
 
     grid-template-rows: 40px;
     width: 100%;
@@ -24,20 +24,30 @@
     display: flex;
 }
 
-.email-preview .select {
+/* .email-preview .select {
     display: grid;
     height: 20px;
     width: 20px;
     padding-left: 13px;
     padding-right: 10px;
-}
+} */
+
+.email-preview .star-container {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    margin-left: 10px;
+} 
 
 .email-preview .star {
-    display: grid;
-    width: 20px;
-    height: 20px;
-    padding-right: 10px;
-}
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+} 
+
 .email-preview .important {
     display: grid;
     width: 20px;
