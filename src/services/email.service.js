@@ -88,10 +88,12 @@ async function removeById(id) {
 
 async function save(emailToSave) {
     // Email is database already -> Update email in database
-    if(emailToSave._id){
+    if(emailToSave.id){
+        console.log("1")
         return storageService.put(STORAGE_KEY,emailToSave)
         // Email is not in database yet -> Add new email and index it
     } else {
+        console.log("2")
         return storageService.post(STORAGE_KEY,emailToSave)
     }
 }
@@ -121,10 +123,10 @@ function getDefaultFilter() {
 
 function createEmails() {
     let emails = utilService.loadFromStorage(STORAGE_KEY)
-    if(!emails || emails.length < 5) {
+    if(!emails) {
         emails = [
             {
-                _id: 'e1', 
+                id: 'e1', 
                 subject: 'New Toyota Corola for sale!',
                 body: 'best price in town, everybody come see!!!!',
                 isRead: false,
@@ -135,7 +137,7 @@ function createEmails() {
                 to: 'user@appsus.com'
             },
             {
-                _id: 'e2', 
+                id: 'e2', 
                 subject: 'Coding Academy pre-background course is the best!',
                 body: 'we are delighted to announce we won the price for best Full-Stack course on plant earth',
                 isRead: true,
@@ -146,7 +148,7 @@ function createEmails() {
                 to: 'user@appsus.com'
             },
             {
-                _id: 'e3', 
+                id: 'e3', 
                 subject: 'Job Offer from: Apple',
                 body: 'Full-Stack junior developer job position has opened - reply this email with your CV',
                 isRead: true,
@@ -157,7 +159,7 @@ function createEmails() {
                 to: 'user@appsus.com'
             },
             {
-                _id: 'e4', 
+                id: 'e4', 
                 subject: 'Job Offer from: Google',
                 body: 'Apple job offer sucks! come work with us <3',
                 isRead: true,
@@ -168,7 +170,7 @@ function createEmails() {
                 to: 'user@appsus.com'
             },
             {
-                _id: 'e5', 
+                id: 'e5', 
                 subject: 'I want an hamburger',
                 body: 'With Cheddar please',
                 isRead: true,

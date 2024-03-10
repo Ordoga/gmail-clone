@@ -46,6 +46,13 @@ export function EmailIndex() {
     }
 
 
+    async function toggleStar(emailId){
+        const email = await emailService.getById(emailId)
+        let newEmail = {...email, isStarred: !email.isStarred}
+        await emailService.save(newEmail)
+        setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
+    }
+
     emailService.createEmails()
 
 
@@ -60,7 +67,7 @@ export function EmailIndex() {
 
                 <div className="main-app-section">
                     <EmailFilter filterBy={{txt}} onSetFilter={onSetFilter}/>
-                    {params.emailId? <EmailDetails/> : <EmailList emails={emails} setFilterBy={setFilterBy}/>}
+                    {params.emailId? <EmailDetails/> : <EmailList emails={emails} setFilterBy={setFilterBy} toggleStar={toggleStar}/>}
                 </div>
             </div>
         </>
