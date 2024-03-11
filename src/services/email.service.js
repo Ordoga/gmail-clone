@@ -43,7 +43,7 @@ function getFilterFromParams(searchParams) {
 function filterByFolder(emails, status){
     switch(status) {
         case 'inbox':
-            emails = emails.filter(email => email.to === loggedinUser.email)
+            emails = emails.filter(email => email.to === loggedinUser.email && email.removedAt === null)
             break;   
         case 'star':
             emails = emails.filter(email => email.isStarred)

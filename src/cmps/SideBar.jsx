@@ -19,6 +19,8 @@ export function Sidebar({ filterBy, onSetFilter }) {
         onSetFilter(currentFolder)
     },[currentFolder])
 
+
+    
     function onComposeClick () {
         console.log("Compose Now")
     }

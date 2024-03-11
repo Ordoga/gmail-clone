@@ -10,7 +10,6 @@ export function EmailPreview({ email, toggleStar }) {
     }, [])
 
     function onStarClick(emailId){
-        console.log("clicked")
         toggleStar(emailId)
     }
 

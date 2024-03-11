@@ -28,7 +28,7 @@ export function EmailIndex() {
         setFilterBy(() => (filterBy))
         loadEmails(filterBy)
 
-    }, [filterBy])
+    }, [filterBy, emails])
 
 
     function onSetFilter(fieldsToUpdate){
@@ -53,6 +53,25 @@ export function EmailIndex() {
         setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
     }
 
+    async function removeEmail(emailId) {
+        try{
+            const email = await emailService.getById(emailId)
+            if(email.removedAt){
+                emailService.removeById(emailId)
+                const index = emails.findIndex(email => email.id === emailId)
+                if(index < 0) throw new Error(`Remove failed, cannot find email with id: ${emailId}`)
+                setEmails(emails.splice(index,1))
+            }else{
+                let newEmail = {...email, removedAt: Date.now()}
+                await emailService.save(newEmail)
+                setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
+            }
+        }catch(err){
+            console.log(`Error: ${err}`)
+        }
+
+    }
+
     emailService.createEmails()
 
 
@@ -67,7 +86,7 @@ export function EmailIndex() {
 
                 <div className="main-app-section">
                     <EmailFilter filterBy={{txt}} onSetFilter={onSetFilter}/>
-                    {params.emailId? <EmailDetails/> : <EmailList emails={emails} setFilterBy={setFilterBy} toggleStar={toggleStar}/>}
+                    {params.emailId? <EmailDetails removeEmail={removeEmail} /> : <EmailList emails={emails} setFilterBy={setFilterBy} toggleStar={toggleStar}/>}
                 </div>
             </div>
         </>

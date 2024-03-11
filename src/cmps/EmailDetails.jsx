@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router"
-
+import { useNavigate } from "react-router-dom";
 import { emailService } from "../services/email.service"
 
 
-export function EmailDetails(){
+export function EmailDetails({ removeEmail }){
 
     const [email, setEmail] = useState(null)
     const params = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         console.log(`before load Email`, email)
@@ -24,6 +25,12 @@ export function EmailDetails(){
         }
     }
 
+    function onRemoveItem(emailId) {
+        removeEmail(emailId)
+        navigate('/')
+    }
+
+
     if (!email) {
         console.log(`No Emails`)
         return
@@ -35,6 +42,7 @@ export function EmailDetails(){
                 <h4>From: {email.from}</h4>
                 <h4>To: {email.to}</h4>
                 <p>{email.body}</p>
+                <button onClick={() => onRemoveItem(email.id)}>{email.removedAt? `Delete Permenantely` : `Move To Trash`}</button>
             </section>
         </>
     )
