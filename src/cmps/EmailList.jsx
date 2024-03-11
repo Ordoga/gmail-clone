@@ -1,8 +1,10 @@
 import { useEffect } from "react"
 import { EmailPreview } from "./EmailPreview"
+import { useOutletContext } from "react-router-dom"
 
+export function EmailList() {
 
-export function EmailList({emails, toggleStar, removeEmail, toggleRead}) {
+    const {emails, toggleStar, removeEmail, toggleRead} = useOutletContext()
 
     useEffect(() => {
 

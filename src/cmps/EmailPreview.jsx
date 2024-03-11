@@ -40,7 +40,7 @@ export function EmailPreview({ email, toggleStar, removeEmail, toggleRead}) {
 
                 {/* Column 3 */}
                 <div className="subject-body">
-                    <Link to={`/${email.id}`} className="subject">{email.subject} - {email.body}</Link>
+                    <Link to={`${email.id}`} className="subject">{email.subject} - {email.body}</Link>
                 </div>
                 
                 {/* Column 4 */}

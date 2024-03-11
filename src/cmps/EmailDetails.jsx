@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { emailService } from "../services/email.service"
 
 
-export function EmailDetails({ removeEmail, markRead}){
+export function EmailDetails(){
 
     const [email, setEmail] = useState(null)
     const params = useParams()
     const navigate = useNavigate()
+
+    const { removeEmail, markRead } = useOutletContext()
 
     useEffect(() => {
         loadEmail()
@@ -24,9 +26,9 @@ export function EmailDetails({ removeEmail, markRead}){
         }
     }
 
-    function onRemoveItem(emailId) {
-        removeEmail(emailId)
-        navigate('/')
+    function onRemoveItem(emailToRemove) {
+        removeEmail(emailToRemove.id)
+        navigate(`/${params.folder}`)
     }
 
 
@@ -41,7 +43,7 @@ export function EmailDetails({ removeEmail, markRead}){
                 <h4>From: {email.from}</h4>
                 <h4>To: {email.to}</h4>
                 <p>{email.body}</p>
-                <button onClick={() => onRemoveItem(email.id)}>{email.removedAt? `Delete Permenantely` : `Move To Trash`}</button>
+                <button onClick={() => onRemoveItem(email)}>{email.removedAt? `Delete Permenantely` : `Move To Trash`}</button>
             </section>
         </>
     )

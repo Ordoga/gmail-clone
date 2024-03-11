@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
-export function Sidebar({ filterBy, onSetFilter }) {
+export function Sidebar({ filterBy, onSetFilter, unreadCount }) {
 
     // Get current folder from EmailIndex filterBy current State
     
+
+    // TODO - useless state
     const [currentFolder, setCurrentFolder] = useState(filterBy)
     
     // On every folder click, update folder state
@@ -20,7 +22,7 @@ export function Sidebar({ filterBy, onSetFilter }) {
     },[currentFolder])
 
 
-    
+
     function onComposeClick () {
         console.log("Compose Now")
     }
@@ -33,12 +35,15 @@ export function Sidebar({ filterBy, onSetFilter }) {
                 </div>
                 <button className="compose-button" onClick={onComposeClick}>
                     Compose
-                </button>
+                </button>  
+
+                {/* // TODO change to filter in EmailIndex by folder in params */}
+
                 <div className="sidebar-content">
-                    <li><a onClick={() => handleFolderClick('inbox')}>Inbox</a></li>
-                    <li><a onClick={() => handleFolderClick('star')}>Starred</a></li>
-                    <li><a onClick={() => handleFolderClick('trash')}>Trash</a></li>
-                    <li><a onClick={() => handleFolderClick('sent')}>Sent</a></li>
+                    <li><Link to="/inbox" onClick={() => handleFolderClick('inbox')}>{(unreadCount>0)? "Inbox " + unreadCount : "Inbox"}</Link></li>
+                    <li><Link to="/star" onClick={() => handleFolderClick('star')}>Starred</Link></li>
+                    <li><Link to="/trash" onClick={() => handleFolderClick('trash')}>Trash</Link></li>
+                    <li><Link to="/sent" onClick={() => handleFolderClick('sent')}>Sent</Link></li>
                 </div>
             </div>
         </>

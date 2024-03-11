@@ -11,7 +11,8 @@ export const emailService = {
     createEmail,
     createEmails,
     getDefaultFilter,
-    getFilterFromParams
+    getFilterFromParams,
+    getUnreadCount
 }
 
 const loggedinUser = { email: 'user@appsus.com', fullname: 'Mahatma Appsus' }
@@ -46,13 +47,13 @@ function filterByFolder(emails, status){
             emails = emails.filter(email => email.to === loggedinUser.email && email.removedAt === null)
             break;   
         case 'star':
-            emails = emails.filter(email => email.isStarred)
+            emails = emails.filter(email => email.isStarred && email.removedAt === null)
             break;
         case 'trash':
             emails = emails.filter(email => email.removedAt !== null)
             break;
         case 'sent':
-            emails = emails.filter(email => email.from === loggedinUser.email)
+            emails = emails.filter(email => email.from === loggedinUser.email && email.removedAt === null)
             break;
         default:
     }
@@ -67,6 +68,17 @@ function filterByTxt(emails, txt) {
     return emails
 }
 
+async function getUnreadCount(){
+    let emails = await storageService.query(STORAGE_KEY)
+    emails = filterByFolder(emails,'inbox')
+    let counter = 0
+    emails.forEach(email => {
+        if(!email.isRead){
+            counter++
+        }
+    })
+    return counter
+}
 
 async function getById(id) {
     try {

@@ -1,12 +1,10 @@
 import { useEffect, useState} from "react"
-import { useParams } from "react-router"
+import { Outlet, useParams } from "react-router"
 import { useSearchParams } from "react-router-dom"
 
 import { Sidebar } from "../cmps/SideBar"
-import { EmailList } from "../cmps/EmailList"
 import { emailService } from "../services/email.service"
 import { EmailFilter } from "../cmps/EmailFilter"
-import { EmailDetails } from "../cmps/EmailDetails"
 
 
 // TODO - change to all filters
@@ -16,19 +14,25 @@ export function EmailIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [emails, setEmails] = useState(null)
     const [filterBy, setFilterBy] = useState(emailService.getFilterFromParams(searchParams))
-
-    
+    const [unreadCount, setUnreadCount] = useState(getUnreadCount())
     const params = useParams()
 
     // Load Emails on Component mount, and every change to Filter By to re-filter
 
     useEffect(() => {
-        setSearchParams(filterBy)
+        setSearchParams(filterBy) // TODO Take to outside Function that handles individual params
         setFilterBy(() => (filterBy))
         loadEmails(filterBy)
 
     }, [filterBy])
 
+
+    function onChangeFilter(){
+        const newFilter = {txt:filterBy.txt, isRead:filterBy.isRead}
+
+    }
+
+    
 
     function onSetFilter(fieldsToUpdate){
         setFilterBy((prevFilter) => ({...prevFilter,...fieldsToUpdate}))
@@ -44,15 +48,12 @@ export function EmailIndex() {
         }
     }
 
-
     async function toggleStar(emailId){
         const email = await emailService.getById(emailId)
         let newEmail = {...email, isStarred: !email.isStarred}
         await emailService.save(newEmail)
         setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
     }
-
-    
 
     async function markRead(emailId){
         const email = await emailService.getById(emailId)
@@ -61,13 +62,14 @@ export function EmailIndex() {
         setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
     }
 
-
     async function toggleRead(emailId){
         const email = await emailService.getById(emailId)
         let newEmail = {...email, isRead: !email.isRead}
         await emailService.save(newEmail)
         setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
     }
+
+    // TODO  Trash isn't refreshing after removal
 
     async function removeEmail(emailId) {
         try{
@@ -76,34 +78,46 @@ export function EmailIndex() {
                 emailService.removeById(emailId)
                 const index = emails.findIndex(email => email.id === emailId)
                 if(index < 0) throw new Error(`Remove failed, cannot find email with id: ${emailId}`)
-                console.log(emails)
-                // setEmails((prevEmails) => prevEmails.splice(index,1))
-                console.log(emails)
+                setEmails((prevEmails) => prevEmails.splice(index,1))
             }else{
                 let newEmail = {...email, removedAt: Date.now()}
                 await emailService.save(newEmail)
-                // setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
+                setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
             }
         }catch(err){
             console.log(`Error: ${err}`)
         }
-        loadEmails()
+        await loadEmails()
     }
+
+    async function getUnreadCount(){
+        const count = await emailService.getUnreadCount()
+        setUnreadCount(prevCount => count)
+    }
+
 
     emailService.createEmails()
 
-
     const { txt, status } = filterBy
+
+    function createContext() {
+        if(params.emailId){
+            return { removeEmail, markRead }
+        }
+        else {
+            return  { emails, setFilterBy, toggleStar, removeEmail, toggleRead}
+        }
+    }
 
     if (!emails) return <div>Loading..</div>
     return (
         <>
             <div className="email-index">
-                <Sidebar filterBy={ {status} } onSetFilter={onSetFilter}/>
+                <Sidebar filterBy={ {status} } unreadCount={unreadCount} onSetFilter={onSetFilter}/>
 
                 <div className="main-app-section">
                     <EmailFilter filterBy={{txt}} onSetFilter={onSetFilter}/>
-                    {params.emailId? <EmailDetails removeEmail={removeEmail} markRead={markRead} /> : <EmailList emails={emails} setFilterBy={setFilterBy} toggleStar={toggleStar} removeEmail={removeEmail} toggleRead={toggleRead} />}
+                    <Outlet context={createContext()} />
                 </div>
             </div>
         </>
