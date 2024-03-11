@@ -23,12 +23,11 @@ export function EmailIndex() {
     // Load Emails on Component mount, and every change to Filter By to re-filter
 
     useEffect(() => {
-
         setSearchParams(filterBy)
         setFilterBy(() => (filterBy))
         loadEmails(filterBy)
 
-    }, [filterBy, emails])
+    }, [filterBy])
 
 
     function onSetFilter(fieldsToUpdate){
@@ -53,6 +52,23 @@ export function EmailIndex() {
         setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
     }
 
+    
+
+    async function markRead(emailId){
+        const email = await emailService.getById(emailId)
+        let newEmail = {...email, isRead: true}
+        await emailService.save(newEmail)
+        setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
+    }
+
+
+    async function toggleRead(emailId){
+        const email = await emailService.getById(emailId)
+        let newEmail = {...email, isRead: !email.isRead}
+        await emailService.save(newEmail)
+        setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
+    }
+
     async function removeEmail(emailId) {
         try{
             const email = await emailService.getById(emailId)
@@ -60,16 +76,18 @@ export function EmailIndex() {
                 emailService.removeById(emailId)
                 const index = emails.findIndex(email => email.id === emailId)
                 if(index < 0) throw new Error(`Remove failed, cannot find email with id: ${emailId}`)
-                setEmails(emails.splice(index,1))
+                console.log(emails)
+                // setEmails((prevEmails) => prevEmails.splice(index,1))
+                console.log(emails)
             }else{
                 let newEmail = {...email, removedAt: Date.now()}
                 await emailService.save(newEmail)
-                setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
+                // setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
             }
         }catch(err){
             console.log(`Error: ${err}`)
         }
-
+        loadEmails()
     }
 
     emailService.createEmails()
@@ -81,12 +99,11 @@ export function EmailIndex() {
     return (
         <>
             <div className="email-index">
-
                 <Sidebar filterBy={ {status} } onSetFilter={onSetFilter}/>
 
                 <div className="main-app-section">
                     <EmailFilter filterBy={{txt}} onSetFilter={onSetFilter}/>
-                    {params.emailId? <EmailDetails removeEmail={removeEmail} /> : <EmailList emails={emails} setFilterBy={setFilterBy} toggleStar={toggleStar}/>}
+                    {params.emailId? <EmailDetails removeEmail={removeEmail} markRead={markRead} /> : <EmailList emails={emails} setFilterBy={setFilterBy} toggleStar={toggleStar} removeEmail={removeEmail} toggleRead={toggleRead} />}
                 </div>
             </div>
         </>

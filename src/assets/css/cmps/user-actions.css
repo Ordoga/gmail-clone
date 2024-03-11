@@ -1,0 +1,21 @@
+.user-actions {
+    display: flex;
+}
+
+.action-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+}
+
+.action-container img {
+    height: 30px;
+    width: 30px;
+}
+
+.action-container :hover {
+    background-color: rgb(0, 0, 0,0.2);
+    border-radius: 50px;
+}

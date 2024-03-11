@@ -89,11 +89,9 @@ async function removeById(id) {
 async function save(emailToSave) {
     // Email is database already -> Update email in database
     if(emailToSave.id){
-        console.log("1")
         return storageService.put(STORAGE_KEY,emailToSave)
         // Email is not in database yet -> Add new email and index it
     } else {
-        console.log("2")
         return storageService.post(STORAGE_KEY,emailToSave)
     }
 }

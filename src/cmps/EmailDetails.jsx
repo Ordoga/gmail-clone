@@ -4,21 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { emailService } from "../services/email.service"
 
 
-export function EmailDetails({ removeEmail }){
+export function EmailDetails({ removeEmail, markRead}){
 
     const [email, setEmail] = useState(null)
     const params = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
-        console.log(`before load Email`, email)
         loadEmail()
-        console.log(`after load Email`, email)
     }, [params.emailId])
 
     async function loadEmail() {
         try{
             const emailDetail = await emailService.getById(params.emailId)
+            markRead(emailDetail.id)
             setEmail(emailDetail)
         } catch(err) {
             console.log(`Error: `. err)

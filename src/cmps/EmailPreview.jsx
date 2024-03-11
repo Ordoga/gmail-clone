@@ -1,13 +1,23 @@
 import { utilService } from "../services/util.service"
 import { Link } from "react-router-dom"
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
 
+import { UserActions } from "./UserActions"
 
-export function EmailPreview({ email, toggleStar }) {
+export function EmailPreview({ email, toggleStar, removeEmail, toggleRead}) {
+
+    const [isHoveredActive,setIsHoverActive] = useState(false)
 
     useEffect(() => {
+    }, [isHoveredActive])
 
-    }, [])
+    function onHover(){
+        setIsHoverActive(true)
+    }
+
+    function onHoverFinish(){
+        setIsHoverActive(false)
+    }
 
     function onStarClick(emailId){
         toggleStar(emailId)
@@ -15,7 +25,7 @@ export function EmailPreview({ email, toggleStar }) {
 
     return (
         <>
-            <div className="email-preview" to={`/${email.id}`}>
+            <div onMouseEnter={onHover} onMouseLeave={onHoverFinish} className={"email-preview " + (!email.isRead && 'unread' )} to={`/${email.id}`}>
                 {/* Select, Star icons - Column 1 */} 
                 <div className="left-icons">
                     <div onClick={() => onStarClick(email.id)} className="star-container">
@@ -31,12 +41,10 @@ export function EmailPreview({ email, toggleStar }) {
                 {/* Column 3 */}
                 <div className="subject-body">
                     <Link to={`/${email.id}`} className="subject">{email.subject} - {email.body}</Link>
-                    {/* <div>&nbsp;-&nbsp;</div>
-                    <div className="body">{email.body}</div> */}
                 </div>
                 
                 {/* Column 4 */}
-                <div className="date">{utilService.formatDate(email.sentAt)}</div>
+                {isHoveredActive? <UserActions email={email} removeEmail={removeEmail} toggleRead={toggleRead} /> : <div className="date">{utilService.formatDate(email.sentAt)}</div>}
             </div>
         </>
     )

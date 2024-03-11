@@ -1,12 +1,11 @@
 import { useEffect } from "react"
 import { EmailPreview } from "./EmailPreview"
-import { EmailFilter } from "./EmailFilter"
-export function EmailList({emails, toggleStar}) {
 
 
+export function EmailList({emails, toggleStar, removeEmail, toggleRead}) {
 
     useEffect(() => {
-        console.log(emails)
+
     }, [])
 
     if(!emails){
@@ -21,7 +20,7 @@ export function EmailList({emails, toggleStar}) {
 
                         emails.map(email =>
                             <li key={email.id}>
-                                <EmailPreview email={email} toggleStar={toggleStar}/>
+                                <EmailPreview email={email} toggleStar={toggleStar} removeEmail={removeEmail} toggleRead={toggleRead}/>
                             </li>
                         )
                     }

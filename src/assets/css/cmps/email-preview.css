@@ -6,8 +6,15 @@
 
     grid-template-rows: 40px;
     width: 100%;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(238, 249, 255);
     align-items: center;
+
+
+}
+
+.unread {
+    background-color: rgb(255, 255, 255);
+    font-weight: bold;
 }
 
 .email-preview:hover{
@@ -15,22 +22,11 @@
     z-index: 1;
     cursor: pointer;
 }
-.email-preview .line-part {
-
-}
 
 .email-preview .left-icons {
     width: 103px;
     display: flex;
 }
-
-/* .email-preview .select {
-    display: grid;
-    height: 20px;
-    width: 20px;
-    padding-left: 13px;
-    padding-right: 10px;
-} */
 
 .email-preview .star-container {
     display: grid;
@@ -54,13 +50,12 @@
     height: 20px;
     padding-right: 10px;
 }
+
 .email-preview .sender {
     display: grid;
     height: 20px;
     width: 168px;
     padding-right: 32px;
-
-    
     text-overflow: ellipsis;
     white-space: nowrap;
 
