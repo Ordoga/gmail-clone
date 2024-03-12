@@ -26,7 +26,6 @@ export function EmailIndex() {
 
     }, [filterBy])
 
-
     function onChangeFilter(){
         const newFilter = {txt:filterBy.txt, isRead:filterBy.isRead}
 
@@ -116,7 +115,7 @@ export function EmailIndex() {
                 <Sidebar filterBy={ {status} } unreadCount={unreadCount} onSetFilter={onSetFilter}/>
 
                 <div className="main-app-section">
-                    <EmailFilter filterBy={{txt}} onSetFilter={onSetFilter}/>
+                    <EmailFilter filterBy={ {txt} } onSetFilter={onSetFilter}/>
                     <Outlet context={createContext()} />
                 </div>
             </div>
