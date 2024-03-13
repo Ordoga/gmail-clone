@@ -14,6 +14,8 @@ export function EmailList() {
         return null
     }
 
+    if (emails.length === 0) return <div>No Emails</div>
+
     return (
         <>
             <ul className="email-list">

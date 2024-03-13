@@ -30,6 +30,11 @@ export function EmailFilter({ filterBy, onSetFilter} ){
                 <div className='search-field'>
                     <form onSubmit={handleOnSubmit}>
                         <input type="text" name="txt" value={filterBy.txt} onChange={handleOnChange} placeholder='Search Emails'/>
+                        <select className="is-read" type="isRead" name="isRead" value={filterBy.isRead} onChange={handleOnChange} placeholder='undifined'>
+                            <option value="undifined">All</option>
+                            <option value="True">Read</option>
+                            <option value="False">Unread</option>
+                        </select>
                     </form>
                 </div>
             </div>

@@ -20,34 +20,28 @@ export function EmailIndex() {
     // Load Emails on Component mount, and every change to Filter By to re-filter
 
     useEffect(() => {
-        sanitizeSearchParams() 
+        onUpdateSearchParams() 
         setFilterBy(() => (filterBy))
         loadEmails(filterBy)
 
     }, [filterBy])
 
-    function sanitizeSearchParams(){
+    useEffect(() => {
+        const newFilter = {...filterBy, status:params.folder}
+        setFilterBy(() => (newFilter))
+    }, [params.folder])
+
+    function onUpdateSearchParams(){
         const updatedParams = {}
         if(filterBy.txt !== ''){
             updatedParams.txt = filterBy.txt
         }
-        if(filterBy.isRead !== null){
+        if(filterBy.isRead !== 'undifined'){
             updatedParams.isRead = filterBy.isRead
         }
         setSearchParams(updatedParams)
     }
-
-    function onChangeFilter(){
-        const newFilter = {txt:filterBy.txt, isRead:filterBy.isRead}
-    }
-
     
-
-    function onSetFilter(fieldsToUpdate){
-        setFilterBy((prevFilter) => ({...prevFilter,...fieldsToUpdate}))
-    }
-
-
     async function loadEmails(){
         try {
             const emails = await emailService.query(filterBy)
@@ -56,6 +50,12 @@ export function EmailIndex() {
             console.log(`Error in loading: ${err}`)
         }
     }
+
+    function onSetFilter(fieldsToUpdate){
+        setFilterBy((prevFilter) => ({...prevFilter,...fieldsToUpdate}))
+    }
+
+
 
     async function toggleStar(emailId){
         const email = await emailService.getById(emailId)
@@ -69,6 +69,7 @@ export function EmailIndex() {
         let newEmail = {...email, isRead: true}
         await emailService.save(newEmail)
         setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
+        loadEmails()
     }
 
     async function toggleRead(emailId){
@@ -104,11 +105,6 @@ export function EmailIndex() {
         setUnreadCount(prevCount => count)
     }
 
-
-    emailService.createEmails()
-
-    const { txt, status, isRead} = filterBy
-
     function createContext() {
         if(params.emailId){
             return { removeEmail, markRead }
@@ -117,8 +113,11 @@ export function EmailIndex() {
             return  { emails, setFilterBy, toggleStar, removeEmail, toggleRead}
         }
     }
+    
+    emailService.createEmails()
 
-    if (!emails) return <div>Loading..</div>
+    const { txt, status, isRead} = filterBy
+
     return (
         <>
             <div className="email-index">

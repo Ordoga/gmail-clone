@@ -1,8 +1,6 @@
 import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 
-
-
 export const emailService = {
     query,
     getById,
@@ -14,9 +12,7 @@ export const emailService = {
     getFilterFromParams,
     getUnreadCount
 }
-
 const loggedinUser = { email: 'user@appsus.com', fullname: 'Mahatma Appsus' }
-
 const STORAGE_KEY = 'emails'
 
 async function query(filterBy) {
@@ -25,10 +21,10 @@ async function query(filterBy) {
         // Takes the corresponding fields from filter Object
         let { status, txt, isRead } = filterBy
         console.log(filterBy)
-        emails = filterByTxt(emails, txt)
-        emails = filterByFolder(emails, status)
+        emails = _filterByTxt(emails, txt)
+        emails = _filterByFolder(emails, status)
+        emails = _filterByRead(emails,isRead)
     }
-        // TODO - add more filters
     return emails
 }
 
@@ -41,7 +37,21 @@ function getFilterFromParams(searchParams) {
     return filterBy
 }
 
-function filterByFolder(emails, status){
+function _filterByRead(emails, isRead){
+    switch(isRead){
+        case 'undifined':
+            break;
+        case 'True':
+            emails = emails.filter(email => email.isRead)
+            break;
+        case 'False':
+        emails = emails.filter(email => !email.isRead)
+        break;
+    }
+    return emails
+}
+
+function _filterByFolder(emails, status){
     switch(status) {
         case 'inbox':
             emails = emails.filter(email => email.to === loggedinUser.email && email.removedAt === null)
@@ -63,7 +73,7 @@ function filterByFolder(emails, status){
     return emails
 }
 
-function filterByTxt(emails, txt) {
+function _filterByTxt(emails, txt) {
     emails = emails.filter(email => ((email.subject.toLowerCase().includes(txt.toLowerCase())) || 
     (email.body.toLowerCase().includes(txt.toLowerCase()))    ||
     (email.from.toLowerCase().includes(txt.toLowerCase()))    ))
@@ -73,7 +83,7 @@ function filterByTxt(emails, txt) {
 
 async function getUnreadCount(){
     let emails = await storageService.query(STORAGE_KEY)
-    emails = filterByFolder(emails,'inbox')
+    emails = _filterByFolder(emails,'inbox')
     let counter = 0
     emails.forEach(email => {
         if(!email.isRead){
@@ -129,7 +139,7 @@ function getDefaultFilter() {
         {
             status: 'inbox',
             txt: '',
-            isRead: null
+            isRead: 'undifined'
         }
     )
 }
