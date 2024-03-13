@@ -1,6 +1,9 @@
+import { FaArrowDown } from "react-icons/fa";
+import { FaArrowUp } from "react-icons/fa";
+
+
 import React, {useEffect, useState} from 'react'
 import { emailService } from '../services/email.service'
-
 
 
 export function EmailFilter({ filterBy, sortBy, onSetFilter, onSetSort} ){
@@ -25,9 +28,13 @@ export function EmailFilter({ filterBy, sortBy, onSetFilter, onSetSort} ){
         setFilterByToEdit((prevFilter) => ({...prevFilter, [field]:value }))
     }
 
-    function handleOnSortChange(ev){
-        const  {name : field, value } = ev.target
-        setSortByToEdit((prevFilter) => ({...prevFilter, [field]:value }))
+    function handleOnSortChange(ev, target){
+        if(target) {
+            setSortByToEdit((prevFilter) => ({...prevFilter, sort:target}))
+        }else{
+            const  {name : field, value } = ev.target
+            setSortByToEdit((prevFilter) => ({...prevFilter, [field]:value }))
+        }
     }
 
     // Prevent deep refresh
@@ -57,11 +64,10 @@ export function EmailFilter({ filterBy, sortBy, onSetFilter, onSetSort} ){
                             <option value="subject">Subject</option>
                         </select>
 
-                        <label htmlFor="sort">Sort: </label>
-                        <select className="sort" type="sort" name="sort" value={sortBy.sort} onChange={handleOnSortChange} placeholder='descending'>
-                            <option value="descending">Descending</option>
-                            <option value="ascending">Ascending</option>
-                        </select>
+                        <button onClick={(event) => handleOnSortChange(event, sortBy.sort === 'ascending' ? 'descending' : 'ascending')}>
+                            {sortBy.sort === 'ascending' ?  <FaArrowUp /> : <FaArrowDown /> }
+                            {sortBy.sort === 'ascending' ? 'Ascending' : 'Descending'}
+                        </button>
 
                     </div>
                 </form>

@@ -28,12 +28,12 @@ async function query(filterBy,sortBy) {
         emails = _filterByRead(emails,isRead)
         emails = _filterByTxt(emails, txt)
     }
-    emails = sortEmails(emails,sortBy)
+    emails = _sortEmails(emails,sortBy)
     return emails
 
 }
 
-function sortEmails(emails,sortBy){
+function _sortEmails(emails,sortBy){
     switch(sortBy.sortType){
         case('date'):
             emails = sortBy.sort === 'ascending' ? emails.sort((a,b) => a.sentAt - b.sentAt) : emails.sort((a,b) => b.sentAt - a.sentAt)
