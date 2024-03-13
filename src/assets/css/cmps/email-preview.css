@@ -9,6 +9,8 @@
     background-color: rgb(238, 249, 255);
     align-items: center;
 
+    font-size: 14px;
+
 
 }
 
@@ -90,5 +92,6 @@
 .email-preview .date {
     display: grid;
     margin-left: 16px;
-
+    justify-content: end;
+    padding-right: 16px;
 }

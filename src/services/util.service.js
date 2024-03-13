@@ -25,14 +25,15 @@ function loadFromStorage(key, defaultValue = null) {
 }
 
 function formatDate(time){
+    const currDate = new Date(Date.now())
     const date = new Date(time)
-    const yyyy = date.getFullYear();
-    let mm = date.getMonth() + 1;
+    // let mm = date.getMonth() + 1;
     let dd = date.getDate();
+    let month = date.toLocaleString('default', { month: 'short' });
 
-    // if (dd < 10) dd = '0' + dd;
-    // if (mm < 10) mm = '0' + mm;
-
-    return dd + '/' + mm + '/' + yyyy;
-    
+    if(currDate.getFullYear() !== date.getFullYear()){
+        return date.getFullYear()
+    } else {
+        return dd + ' ' + month;
+    }
 }
