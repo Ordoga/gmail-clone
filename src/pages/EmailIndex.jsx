@@ -20,15 +20,25 @@ export function EmailIndex() {
     // Load Emails on Component mount, and every change to Filter By to re-filter
 
     useEffect(() => {
-        setSearchParams(filterBy) // TODO Take to outside Function that handles individual params
+        sanitizeSearchParams() 
         setFilterBy(() => (filterBy))
         loadEmails(filterBy)
 
     }, [filterBy])
 
+    function sanitizeSearchParams(){
+        const updatedParams = {}
+        if(filterBy.txt !== ''){
+            updatedParams.txt = filterBy.txt
+        }
+        if(filterBy.isRead !== null){
+            updatedParams.isRead = filterBy.isRead
+        }
+        setSearchParams(updatedParams)
+    }
+
     function onChangeFilter(){
         const newFilter = {txt:filterBy.txt, isRead:filterBy.isRead}
-
     }
 
     
