@@ -63,7 +63,7 @@
 
 .folder-container.active {
         font-weight: bold;
-        background-color: rgb(198, 228, 255);
+        background-color: #d3e3fd;
         border-top-right-radius: 40px;
         border-bottom-right-radius: 40px;
 }

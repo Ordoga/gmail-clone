@@ -1,5 +1,6 @@
 import { FaArrowDown } from "react-icons/fa";
 import { FaArrowUp } from "react-icons/fa";
+import { HiMagnifyingGlass } from "react-icons/hi2";
 
 
 import React, {useEffect, useState} from 'react'
@@ -52,14 +53,14 @@ export function EmailFilter({ filterBy, sortBy, onSetFilter, onSetSort} ){
 
                     <div className="filter-sort-field">
                         <label htmlFor="isRead">Show: </label>
-                        <select className="isRead" type="isRead" name="isRead" value={filterBy.isRead} onChange={handleOnFilterChange} placeholder='undifined'>
+                        <select id="isRead" className="isRead" type="isRead" name="isRead" value={filterBy.isRead} onChange={handleOnFilterChange} placeholder='undifined'>
                             <option value="undifined">All</option>
                             <option value="True">Read</option>
                             <option value="False">Unread</option>
                         </select>
 
                         <label htmlFor="sortType">Sort by: </label>
-                        <select className="sortType" type="sortType" name="sortType" value={sortBy.sortType} onChange={handleOnSortChange} placeholder='date'>
+                        <select id="sortType" className="sortType" type="sortType" name="sortType" value={sortBy.sortType} onChange={handleOnSortChange} placeholder='date'>
                             <option value="date">Date</option>
                             <option value="subject">Subject</option>
                         </select>

@@ -22,8 +22,6 @@ async function query(filterBy,sortBy) {
     if(filterBy){
         // Takes the corresponding fields from filter Object
         let { status, txt, isRead } = filterBy
-        console.log(filterBy)
-        console.log(sortBy)
         emails = _filterByFolder(emails, status)
         emails = _filterByRead(emails,isRead)
         emails = _filterByTxt(emails, txt)
