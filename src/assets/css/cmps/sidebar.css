@@ -12,8 +12,7 @@
     flex-direction: column;
     width: 100%;
     min-width: 256px;
-    align-items:  center;
-    gap: 15px;
+    align-items:  flex-start;
 }
 
 .logo-section {
@@ -29,3 +28,61 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.sidebar-content ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-content li {
+    font-size: 14px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-left:26px;
+    padding-right: 12px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    width: 202px;
+    height: 100%;
+}
+
+.folder-container {
+    width: 240px;
+    height: 32px;
+}
+
+.folder-container:hover {
+    background-color: rgb(192, 192, 192, 0.2);
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+
+.folder-container.active {
+        font-weight: bold;
+        background-color: rgb(198, 228, 255);
+        border-top-right-radius: 40px;
+        border-bottom-right-radius: 40px;
+}
+
+.inbox-text .count {
+    display: flex;
+    flex-direction: row;
+    justify-self: flex-end;
+}
+  
+.inbox-text {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; 
+}
+
+a:hover{
+    text-decoration: none;
+
+}
+
+

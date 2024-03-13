@@ -1,3 +1,10 @@
+import { RiInboxFill } from "react-icons/ri";
+import { IoMdStarOutline } from "react-icons/io";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { RxPaperPlane } from "react-icons/rx";
+import { BiFileBlank } from "react-icons/bi";
+
+
 import React, {useEffect, useState} from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
@@ -13,6 +20,7 @@ export function Sidebar({ filterBy, onSetFilter, unreadCount }) {
     function handleFolderClick(newStatus){
         const status = {status:newStatus}
         setCurrentFolder((prevFolder) => ( status ))
+        console.log(currentFolder)
     }
     
     
@@ -40,10 +48,64 @@ export function Sidebar({ filterBy, onSetFilter, unreadCount }) {
                 {/* // TODO change to filter in EmailIndex by folder in params */}
 
                 <div className="sidebar-content">
-                    <li><Link to="/inbox" onClick={() => handleFolderClick('inbox')}>{(unreadCount>0)? "Inbox " + unreadCount : "Inbox"}</Link></li>
-                    <li><Link to="/star" onClick={() => handleFolderClick('star')}>Starred</Link></li>
-                    <li><Link to="/trash" onClick={() => handleFolderClick('trash')}>Trash</Link></li>
-                    <li><Link to="/sent" onClick={() => handleFolderClick('sent')}>Sent</Link></li>
+                    <ul>
+                        <Link to="/inbox" onClick={() => handleFolderClick('inbox')}>
+                            <div className={`folder-container ${filterBy.status==='inbox'?'active':''}`}>
+                                <li>
+                                    <RiInboxFill className="sidebar-icon" size={20} />
+                                    <div className="inbox-text">
+                                        <div>Inbox</div>
+                                        <div className="count">
+                                            {(unreadCount>0)? unreadCount : ""}
+                                        </div>
+                                    </div>
+                                </li>    
+                            </div>
+                        </Link>
+                        <Link to="/star" onClick={() => handleFolderClick('star')}>
+                            <div className={`folder-container ${filterBy.status==='star'?'active':''}`}>
+                                <li>
+                                    <IoMdStarOutline className="sidebar-icon" size={20} />
+                                    <div className="inbox-text">
+                                        <div>Starred</div>
+                                    </div>
+
+                                </li>
+                            </div>
+                        </Link>
+                        <Link to="/trash" onClick={() => handleFolderClick('trash')}>
+                            <div className={`folder-container ${filterBy.status==='trash'?'active':''}`}>    
+                                <li>
+                                    <FaRegTrashAlt className="sidebar-icon" size={20}/>
+                                    <div className="trash-text">
+                                        <div>Trash</div>
+                                    </div>
+                                </li>
+                            </div>
+                        </Link>
+                        <Link to="/sent" onClick={() => handleFolderClick('sent')}>
+                            <div className={`folder-container ${filterBy.status==='sent'?'active':''}`}>    
+                                <li>
+                                    <RxPaperPlane className="sidebar-icon" size={20}/>
+                                    <div className="sent-text">
+                                        <div>Sent</div>
+                                    </div>
+
+                                </li>
+                            </div>
+                        </Link>
+                        <Link to="/sent" onClick={() => handleFolderClick('draft')}>
+                            <div className={`folder-container ${filterBy.status==='draft'?'active':''}`}>    
+                                <li>
+                                    <BiFileBlank className="sidebar-icon" size={20}/>
+                                    <div className="draft-text">
+                                        <div>Drafts</div>
+                                    </div>
+
+                                </li>
+                            </div>
+                        </Link>
+                    </ul>
                 </div>
             </div>
         </>

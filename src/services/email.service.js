@@ -55,6 +55,9 @@ function filterByFolder(emails, status){
         case 'sent':
             emails = emails.filter(email => email.from === loggedinUser.email && email.removedAt === null)
             break;
+        case 'draft':
+            emails = emails.filter(email => email.from === loggedinUser.email && email.sentAt === null)
+            break;
         default:
     }
     return emails

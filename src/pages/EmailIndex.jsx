@@ -97,7 +97,7 @@ export function EmailIndex() {
 
     emailService.createEmails()
 
-    const { txt, status } = filterBy
+    const { txt, status, isRead} = filterBy
 
     function createContext() {
         if(params.emailId){
@@ -115,7 +115,7 @@ export function EmailIndex() {
                 <Sidebar filterBy={ {status} } unreadCount={unreadCount} onSetFilter={onSetFilter}/>
 
                 <div className="main-app-section">
-                    <EmailFilter filterBy={ {txt} } onSetFilter={onSetFilter}/>
+                    <EmailFilter filterBy={ {txt, isRead} } onSetFilter={onSetFilter}/>
                     <Outlet context={createContext()} />
                 </div>
             </div>
