@@ -3,9 +3,10 @@ import { emailService } from '../services/email.service'
 
 
 
-export function EmailFilter({ filterBy, onSetFilter} ){
+export function EmailFilter({ filterBy, sortBy, onSetFilter, onSetSort} ){
 
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy? filterBy : emailService.getDefaultFilter())
+    const [sortByToEdit, setSortByToEdit] = useState(sortBy? sortBy : emailService.getDefaultSort())
 
 
     // Everytime the filter changes, update on EmailIndex
@@ -13,10 +14,20 @@ export function EmailFilter({ filterBy, onSetFilter} ){
         onSetFilter(filterByToEdit)
     }, [filterByToEdit])
 
+
+    useEffect(() => {
+        onSetSort(sortByToEdit)
+    }, [sortByToEdit])
+
     // Everytime the input changes, change the corresponding field in filterByToEdit -> then renders again and apply UseEffect
-    function handleOnChange(ev){
+    function handleOnFilterChange(ev){
         const  {name : field, value } = ev.target
         setFilterByToEdit((prevFilter) => ({...prevFilter, [field]:value }))
+    }
+
+    function handleOnSortChange(ev){
+        const  {name : field, value } = ev.target
+        setSortByToEdit((prevFilter) => ({...prevFilter, [field]:value }))
     }
 
     // Prevent deep refresh
@@ -27,16 +38,33 @@ export function EmailFilter({ filterBy, onSetFilter} ){
     return (
         <>
             <div className="email-filter">
-                <div className='search-field'>
-                    <form onSubmit={handleOnSubmit}>
-                        <input type="text" name="txt" value={filterBy.txt} onChange={handleOnChange} placeholder='Search Emails'/>
-                        <select className="is-read" type="isRead" name="isRead" value={filterBy.isRead} onChange={handleOnChange} placeholder='undifined'>
+                <form className="filter-form" onSubmit={handleOnSubmit}>
+                    <div className='search-field'>
+                        <input type="text" name="txt" value={filterBy.txt} onChange={handleOnFilterChange} placeholder='Search Emails'/>
+                    </div>
+
+                    <div className="filter-sort-field">
+                        <label htmlFor="isRead">Show: </label>
+                        <select className="isRead" type="isRead" name="isRead" value={filterBy.isRead} onChange={handleOnFilterChange} placeholder='undifined'>
                             <option value="undifined">All</option>
                             <option value="True">Read</option>
                             <option value="False">Unread</option>
                         </select>
-                    </form>
-                </div>
+
+                        <label htmlFor="sortType">Sort by: </label>
+                        <select className="sortType" type="sortType" name="sortType" value={sortBy.sortType} onChange={handleOnSortChange} placeholder='date'>
+                            <option value="date">Date</option>
+                            <option value="subject">Subject</option>
+                        </select>
+
+                        <label htmlFor="sort">Sort: </label>
+                        <select className="sort" type="sort" name="sort" value={sortBy.sort} onChange={handleOnSortChange} placeholder='descending'>
+                            <option value="descending">Descending</option>
+                            <option value="ascending">Ascending</option>
+                        </select>
+
+                    </div>
+                </form>
             </div>
         </>
     )

@@ -15,6 +15,7 @@ export function EmailIndex() {
     const [emails, setEmails] = useState(null)
     const [filterBy, setFilterBy] = useState(emailService.getFilterFromParams(searchParams))
     const [unreadCount, setUnreadCount] = useState(getUnreadCount())
+    const [sortBy, setSortBy] = useState(emailService.getSortByFromParams(searchParams))
     const params = useParams()
 
     // Load Emails on Component mount, and every change to Filter By to re-filter
@@ -31,6 +32,13 @@ export function EmailIndex() {
         setFilterBy(() => (newFilter))
     }, [params.folder])
 
+    useEffect(() => {
+        onUpdateSearchParams()
+        setSortBy(() => sortBy)
+        loadEmails()
+    }, [sortBy])
+    
+
     function onUpdateSearchParams(){
         const updatedParams = {}
         if(filterBy.txt !== ''){
@@ -39,12 +47,18 @@ export function EmailIndex() {
         if(filterBy.isRead !== 'undifined'){
             updatedParams.isRead = filterBy.isRead
         }
+        if(sortBy.sort === 'ascending'){
+            updatedParams.sort = 'ascending'
+        }
+        if(sortBy.sortType !== 'date'){
+            updatedParams.sortType = sortBy.sortType
+        }
         setSearchParams(updatedParams)
     }
     
     async function loadEmails(){
         try {
-            const emails = await emailService.query(filterBy)
+            const emails = await emailService.query(filterBy,sortBy)
             setEmails(emails)
         } catch (err) {
             console.log(`Error in loading: ${err}`)
@@ -55,6 +69,9 @@ export function EmailIndex() {
         setFilterBy((prevFilter) => ({...prevFilter,...fieldsToUpdate}))
     }
 
+    function onSetSort(fieldsToUpdate){
+        setSortBy((prevSort) => ({...prevSort, ...fieldsToUpdate}))
+    }
 
 
     async function toggleStar(emailId){
@@ -69,7 +86,6 @@ export function EmailIndex() {
         let newEmail = {...email, isRead: true}
         await emailService.save(newEmail)
         setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
-        loadEmails()
     }
 
     async function toggleRead(emailId){
@@ -124,7 +140,7 @@ export function EmailIndex() {
                 <Sidebar filterBy={ {status} } unreadCount={unreadCount} onSetFilter={onSetFilter}/>
 
                 <div className="main-app-section">
-                    <EmailFilter filterBy={ {txt, isRead} } onSetFilter={onSetFilter}/>
+                    <EmailFilter filterBy={ {txt, isRead} } sortBy={sortBy} onSetFilter={onSetFilter} onSetSort={onSetSort}/>
                     <Outlet context={createContext()} />
                 </div>
             </div>

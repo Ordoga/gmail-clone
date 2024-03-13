@@ -9,21 +9,38 @@ export const emailService = {
     createEmail,
     createEmails,
     getDefaultFilter,
+    getDefaultSort,
     getFilterFromParams,
+    getSortByFromParams,
     getUnreadCount
 }
 const loggedinUser = { email: 'user@appsus.com', fullname: 'Mahatma Appsus' }
 const STORAGE_KEY = 'emails'
 
-async function query(filterBy) {
+async function query(filterBy,sortBy) {
     let emails = await storageService.query(STORAGE_KEY)
     if(filterBy){
         // Takes the corresponding fields from filter Object
         let { status, txt, isRead } = filterBy
         console.log(filterBy)
-        emails = _filterByTxt(emails, txt)
+        console.log(sortBy)
         emails = _filterByFolder(emails, status)
         emails = _filterByRead(emails,isRead)
+        emails = _filterByTxt(emails, txt)
+    }
+    emails = sortEmails(emails,sortBy)
+    return emails
+
+}
+
+function sortEmails(emails,sortBy){
+    switch(sortBy.sortType){
+        case('date'):
+            emails = sortBy.sort === 'ascending' ? emails.sort((a,b) => a.sentAt - b.sentAt) : emails.sort((a,b) => b.sentAt - a.sentAt)
+        break;
+        case('subject'):
+            emails = sortBy.sort === 'ascending' ? emails.sort((a, b) => a.subject.localeCompare(b.subject)) : emails.sort((a, b) => b.subject.localeCompare(a.subject))
+        break;
     }
     return emails
 }
@@ -36,6 +53,16 @@ function getFilterFromParams(searchParams) {
     }
     return filterBy
 }
+
+function getSortByFromParams(searchParams){
+    const defaultSort = getDefaultSort()
+    const sortBy = {}
+    for (const field in defaultSort) {
+        sortBy[field] = searchParams.get(field) || defaultSort[field]
+    }
+    return sortBy
+}
+
 
 function _filterByRead(emails, isRead){
     switch(isRead){
@@ -143,6 +170,16 @@ function getDefaultFilter() {
         }
     )
 }
+
+function getDefaultSort(){
+    return (
+        {
+            sortType: "date",
+            sort: "descending"
+        }
+    )
+}
+
 
 function createEmails() {
     let emails = utilService.loadFromStorage(STORAGE_KEY)
