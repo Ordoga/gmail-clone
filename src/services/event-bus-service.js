@@ -6,7 +6,6 @@ function createEventEmitter() {
         // Use this function to subscribe to an event
         on(evName, listener) {
             listenersMap[evName] = (listenersMap[evName]) ? [...listenersMap[evName], listener] : [listener]
-            console.log('listenersMap', listenersMap)
 
             // Due to closure, it knows to remove the respective listener
             return () => {

@@ -6,10 +6,10 @@ import { BiFileBlank } from "react-icons/bi";
 
 import { Link } from 'react-router-dom'
 
-export function Sidebar({ filterBy, unreadCount }) {
+export function Sidebar({ filterBy, unreadCount, composeEmail }) {
 
     function onComposeClick () {
-        console.log("Compose Now")
+        composeEmail()
     }
 
     return (

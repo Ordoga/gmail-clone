@@ -1,0 +1,18 @@
+.email-compose-window{
+    background-color: lightgray;
+    padding: 0.5em 1em;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+
+    height: 450px;
+    width: 350px;
+
+    color: white;
+    font-weight: bold;
+    border-radius: 16px;
+    display: flex;
+    border: 1px solid green;
+    flex-direction: column;
+    align-items: center;
+}

@@ -15,5 +15,6 @@
 @import "./cmps/sidebar.css";
 @import "./cmps/email-filter.css";
 @import "./cmps/user-actions.css";
-@import "./cmps/user-msg.css"
+@import "./cmps/user-msg.css";
+@import "./cmps/email-compose.css"
 

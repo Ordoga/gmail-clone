@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router"
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { emailService } from "../services/email.service"
 
 
@@ -39,6 +39,7 @@ export function EmailDetails(){
     return (
         <>
             <section className="email-details">
+                <Link to={`/${params.folder}`}><h1>{'<- Back'}</h1></Link>
                 <h1>{email.subject}</h1>
                 <h4>From: {email.from}</h4>
                 <h4>To: {email.to}</h4>
