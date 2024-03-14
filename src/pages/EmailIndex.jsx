@@ -5,9 +5,7 @@ import { useSearchParams } from "react-router-dom"
 import { Sidebar } from "../cmps/SideBar"
 import { emailService } from "../services/email.service"
 import { EmailFilter } from "../cmps/EmailFilter"
-
-
-// TODO - change to all filters
+import { eventBusService } from "../services/event-bus-service"
 
 export function EmailIndex() {
 
@@ -79,39 +77,41 @@ export function EmailIndex() {
         let newEmail = {...email, isStarred: !email.isStarred}
         await emailService.save(newEmail)
         setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
+        eventBusService.emit('show-user-msg', {type: 'success', txt:`Email Marked As ${newEmail.isStarred   ? "Starred" : "Unstarred"}`})
     }
-
-    async function markRead(emailId){
-        const email = await emailService.getById(emailId)
-        let newEmail = {...email, isRead: true}
-        await emailService.save(newEmail)
-        setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
-    }
-
+    
     async function toggleRead(emailId){
         const email = await emailService.getById(emailId)
         let newEmail = {...email, isRead: !email.isRead}
         await emailService.save(newEmail)
         setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
+        eventBusService.emit('show-user-msg', {type: 'success', txt:`Email Marked As ${newEmail.isRead? "Read" : "Unread"}`})
     }
-
+    
+    
     // TODO  Trash isn't refreshing after removal
 
     async function removeEmail(emailId) {
         try{
             const email = await emailService.getById(emailId)
             if(email.removedAt){
+                // Delete from trash
                 emailService.removeById(emailId)
                 const index = emails.findIndex(email => email.id === emailId)
                 if(index < 0) throw new Error(`Remove failed, cannot find email with id: ${emailId}`)
                 setEmails((prevEmails) => prevEmails.splice(index,1))
+                eventBusService.emit('show-user-msg', {type: 'success', txt:'Email Deleted Permanently'})
             }else{
+                // Move to trash
                 let newEmail = {...email, removedAt: Date.now()}
                 await emailService.save(newEmail)
                 setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
+                eventBusService.emit('show-user-msg', {type: 'success', txt:'Email Moved To Trash'})
             }
         }catch(err){
             console.log(`Error: ${err}`)
+            eventBusService.emit('show-user-msg', {type: 'error', txt:'Could not delete email'})
+
         }
         await loadEmails()
     }
@@ -119,6 +119,13 @@ export function EmailIndex() {
     async function getUnreadCount(){
         const count = await emailService.getUnreadCount()
         setUnreadCount(prevCount => count)
+    }
+    
+    async function markRead(emailId){
+        const email = await emailService.getById(emailId)
+        let newEmail = {...email, isRead: true}
+        await emailService.save(newEmail)
+        setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
     }
 
     function createContext() {
