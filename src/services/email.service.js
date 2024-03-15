@@ -146,7 +146,7 @@ async function save(emailToSave) {
     }
 }
 
-function createEmail(subject= '', body='', isRead=false, isStarred=false, sentAt=null, removedAt=null, from=loggedinUser.email ,to){
+function createEmail(subject= '', body='', isRead=false, isStarred=false, sentAt=null, removedAt=null, from=loggedinUser.email ,to=""){
     return {
         subject,
         body,

@@ -1,11 +1,24 @@
 import { useEffect , useState} from "react"
 import { emailService } from "../services/email.service"
 
-export function EmailCompose({searchParams, exitCompose, emailId}){
+export function EmailCompose({searchParams, exitCompose}){
 
-    const [email,setEmail] = useState(emailId? loadEmail(emailId) : emailService.createEmail())
+    const [email,setEmail] = useState(null)
 
+    
     useEffect(() => {
+        async function loadEmail(){
+            if(searchParams.get('compose') === 'new'){
+                setEmail(emailService.createEmail())
+            }else{
+                const emailToEdit = await emailService.getById(searchParams.get('compose'))
+                setEmail(emailToEdit)
+            }
+        }
+        loadEmail()
+    }, [])
+    
+    useEffect(() => {    
         saveToDatabase(email)
     }, [email])
 
@@ -17,6 +30,7 @@ export function EmailCompose({searchParams, exitCompose, emailId}){
         }
     }
 
+    // Saves all the time, need to re-design
     function onSaveDraft(event){
         switch(event.target.name){
             case('to'):
@@ -31,10 +45,6 @@ export function EmailCompose({searchParams, exitCompose, emailId}){
         }
     }
     
-    // TODO : update to actually load it
-    function loadEmail(emailId){
-        return emailService.getById(emailId)
-    }
 
     function onExitCompose(){
         exitCompose()
@@ -46,19 +56,20 @@ export function EmailCompose({searchParams, exitCompose, emailId}){
         exitCompose()
     }
 
+    if(!email) return <></>
     return (
         <>
             <div className="email-compose-window">
                 <form>
 
                     <label htmlFor="to">To: </label>
-                    <input onChange={onSaveDraft} name="to" id="to" className="to" />
+                    <input onChange={onSaveDraft} name="to" id="to" className="to" value={email.to}/>
 
                     <label htmlFor="subject">Subject: </label>
-                    <input onChange={onSaveDraft} name="subject" id="subject" className="subject" />
+                    <input onChange={onSaveDraft} name="subject" id="subject" className="subject" value={email.subject}/>
 
                     <label htmlFor="email-body">Body: </label>
-                    <input onChange={onSaveDraft} name="email-body" id="email-body" className="email-body" />
+                    <input onChange={onSaveDraft} name="email-body" id="email-body" className="email-body" value={email.body}/>
                 </form>
 
                 <button onClick={onExitCompose}>X</button>

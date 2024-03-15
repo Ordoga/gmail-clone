@@ -16,8 +16,7 @@ export function EmailIndex() {
     const [filterBy, setFilterBy] = useState(emailService.getFilterFromParams(searchParams))
     const [unreadCount, setUnreadCount] = useState(getUnreadCount())
     const [sortBy, setSortBy] = useState(emailService.getSortByFromParams(searchParams))
-    // Update due to searchParams
-    // const [isComposing, setIsComposing] = useState(false)
+    const [isComposing, setIsComposing] = useState(searchParams.get('compose')? true : false)
 
 
     const params = useParams()
@@ -42,15 +41,26 @@ export function EmailIndex() {
         loadEmails()
     }, [sortBy])
 
-    function composeEmail(){
-        setSearchParams((prevParams) => ({...prevParams, compose:'new'}))
-        // setIsComposing((prevIsComposing) => true)
+    useEffect(() => {
+        onUpdateSearchParams()
+    }, [isComposing])
+
+    function composeEmail(emailId){
+        setIsComposing(true)
+        if(emailId){
+            setSearchParams((prevParams) => ({...prevParams, compose:emailId}))
+        }else{
+            setSearchParams((prevParams) => ({...prevParams, compose:'new'}))
+        }
+    }
+
+    function onEditDraft(emailId){
+        composeEmail(emailId)
     }
 
     function exitCompose(){
-        // setIsComposing((prevIsComposing) => false)
+        setIsComposing(false)
         searchParams.delete('compose')
-        onUpdateSearchParams()
     }
 
     function onUpdateSearchParams(){
@@ -68,7 +78,7 @@ export function EmailIndex() {
             updatedParams.sortType = sortBy.sortType
         }
         if(searchParams.get('compose')){
-            updatedParams.compose = 'new'
+            updatedParams.compose = searchParams.get('compose')
         }
         setSearchParams(updatedParams)
     }
@@ -150,10 +160,12 @@ export function EmailIndex() {
         setEmails((prevEmails) => prevEmails.map(currEmail => currEmail.id === newEmail.id ? newEmail : currEmail))
     }
 
+
+
     function createContext() {
         if(params.emailId){
             // Context for EmailDetails
-            return { removeEmail, markRead }
+            return { removeEmail, markRead, onEditDraft }
         }
         else {
             // Context for EmailList
@@ -174,7 +186,7 @@ export function EmailIndex() {
                     <EmailFilter filterBy={ {txt, isRead} } sortBy={sortBy} onSetFilter={onSetFilter} onSetSort={onSetSort}/>
                     <Outlet context={createContext()} />
 
-                    {searchParams.get('compose') && <EmailCompose searchParams={searchParams} exitCompose={exitCompose}/>}
+                    {isComposing && <EmailCompose searchParams={searchParams} exitCompose={exitCompose}/>}
                     
                 </div>
             </div>

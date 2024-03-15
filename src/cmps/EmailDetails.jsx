@@ -10,7 +10,7 @@ export function EmailDetails(){
     const params = useParams()
     const navigate = useNavigate()
 
-    const { removeEmail, markRead } = useOutletContext()
+    const { removeEmail, markRead , onEditDraft} = useOutletContext()
 
     useEffect(() => {
         loadEmail()
@@ -36,6 +36,7 @@ export function EmailDetails(){
         console.log(`No Emails`)
         return
     }
+
     return (
         <>
             <section className="email-details">
@@ -45,6 +46,7 @@ export function EmailDetails(){
                 <h4>To: {email.to}</h4>
                 <p>{email.body}</p>
                 <button onClick={() => onRemoveItem(email)}>{email.removedAt? `Delete Permenantely` : `Move To Trash`}</button>
+                {!email.sentAt && <button onClick={() => onEditDraft(email.id)}>Edit Draft</button>}
             </section>
         </>
     )
