@@ -44,7 +44,7 @@ export function EmailPreview({ email, toggleStar, removeEmail, toggleRead}) {
                 </div>
                 
                 {/* Column 4 */}
-                {isHoveredActive? <UserActions email={email} removeEmail={removeEmail} toggleRead={toggleRead} /> : <div className="date">{utilService.formatDate(email.sentAt)}</div>}
+                {isHoveredActive? <UserActions email={email} removeEmail={removeEmail} toggleRead={toggleRead} /> : <div className="date">{email.sentAt? utilService.formatDate(email.sentAt) : ""}</div>}
             </div>
         </>
     )

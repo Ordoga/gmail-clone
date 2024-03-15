@@ -88,7 +88,7 @@ function _filterByFolder(emails, status){
             emails = emails.filter(email => email.removedAt !== null)
             break;
         case 'sent':
-            emails = emails.filter(email => email.from === loggedinUser.email && email.removedAt === null)
+            emails = emails.filter(email => email.from === loggedinUser.email && email.removedAt === null && email.sentAt)
             break;
         case 'draft':
             emails = emails.filter(email => email.from === loggedinUser.email && email.sentAt === null)
@@ -146,7 +146,7 @@ async function save(emailToSave) {
     }
 }
 
-function createEmail(subject= 'No Subject Entered', body='', isRead=false, isStarred=false, sentAt=Date.now(), removedAt=null, from,to){
+function createEmail(subject= '', body='', isRead=false, isStarred=false, sentAt=null, removedAt=null, from=loggedinUser.email ,to){
     return {
         subject,
         body,
