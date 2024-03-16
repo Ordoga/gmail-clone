@@ -60,20 +60,27 @@ export function EmailCompose({searchParams, exitCompose}){
     return (
         <>
             <div className="email-compose-window">
+                <div className="new-message-title">
+                    New Message
+                    <button class="exit-compose-btn" onClick={onExitCompose}>X</button>
+                </div>
+                
                 <form>
 
-                    <label htmlFor="to">To: </label>
-                    <input onChange={onSaveDraft} name="to" id="to" className="to" value={email.to}/>
+                    <div className="compose-body">
+                        <label htmlFor="to">To: </label>
+                        <input onChange={onSaveDraft} name="to" id="to" className="to" value={email.to}/>
 
-                    <label htmlFor="subject">Subject: </label>
-                    <input onChange={onSaveDraft} name="subject" id="subject" className="subject" value={email.subject}/>
+                        <label htmlFor="subject">Subject: </label>
+                        <input onChange={onSaveDraft} name="subject" id="subject" className="subject" value={email.subject}/>
 
-                    <label htmlFor="email-body">Body: </label>
-                    <input onChange={onSaveDraft} name="email-body" id="email-body" className="email-body" value={email.body}/>
+                        <label htmlFor="email-body">Body: </label>
+                        <input onChange={onSaveDraft} name="email-body" id="email-body" className="email-body" value={email.body}/>
+                    </div>
                 </form>
 
-                <button onClick={onExitCompose}>X</button>
-                <button onClick={onSendEmail}>Send</button>
+
+                <button className="send-email-btn" onClick={onSendEmail}>Send</button>
             </div>
         </>
     )

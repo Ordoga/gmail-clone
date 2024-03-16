@@ -66,8 +66,12 @@ export function EmailFilter({ filterBy, sortBy, onSetFilter, onSetSort} ){
                         </select>
 
                         <button onClick={(event) => handleOnSortChange(event, sortBy.sort === 'ascending' ? 'descending' : 'ascending')}>
-                            {sortBy.sort === 'ascending' ?  <FaArrowUp /> : <FaArrowDown /> }
-                            {sortBy.sort === 'ascending' ? 'Ascending' : 'Descending'}
+                            <div className="arrow">
+                                {sortBy.sort === 'ascending' ?  <FaArrowUp /> : <FaArrowDown /> }
+                            </div>
+                            <div className="text">
+                                {sortBy.sort === 'ascending' ? 'Ascending' : 'Descending'}
+                            </div>
                         </button>
 
                     </div>

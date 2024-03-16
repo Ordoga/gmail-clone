@@ -1,19 +1,13 @@
 .email-filter {
     display: flex;
     flex-direction: column;
-    height: 140px;
-}
-.search-field {
-    padding: 5px;
-    height: 100px;
-    width: 720px;
 }
 
-.search-field form {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
+.search-field {
+    height: 48px;
+    width: 720px;
+    margin-top:8px;
+    margin-bottom:8px;
 }
 
 .search-field input {
@@ -22,28 +16,40 @@
     width: 600px;
     border-radius: 50px;
     padding-left: 16px;
-
     font-size: 16px;    
     color: black;
-    height: 60%;
+    height: 100%;
     display: flex;
     align-items: center;
 }
 
-.search-bar {
+.filter-sort-field {
+    height: 40px;
     display: flex;
-    flex: 1;
-    padding-left: 10px;
-    padding-right: 30px;
-    height: 68px;
-
     align-items: center;
-}    
+    gap: 16px;
+    padding-left:16px;
+    margin:8px
+}
 
-.sorting {
-    background-color:#ffffff;
-    height: 30px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom: 1px solid white;
+.filter-sort-field select {
+    border-radius: 4px;
+    height: 24px;
+    margin-top:3px;
+}
+
+.filter-sort-field button {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+    height:28px;
+    margin-top:3px;
+    width: 100px;
+    border: 2px solid rgb(194, 194, 194,0.5);
+    font-weight: 500;
+}
+
+.filter-sort-field button .arrow{
+    margin-top:2px;
 }

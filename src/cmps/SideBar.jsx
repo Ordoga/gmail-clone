@@ -3,8 +3,10 @@ import { IoMdStarOutline } from "react-icons/io";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { RxPaperPlane } from "react-icons/rx";
 import { BiFileBlank } from "react-icons/bi";
+import { RiPencilLine } from "react-icons/ri";
 
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import Logo from '/gmail-logo.png';
 
 export function Sidebar({ filterBy, unreadCount, composeEmail }) {
 
@@ -16,11 +18,16 @@ export function Sidebar({ filterBy, unreadCount, composeEmail }) {
         <>
             <div className="sidebar-container">
                 <div className="logo-section">
-                    
+                    <img height="50px" src={Logo}></img>
                 </div>
                 
                 <button className="compose-button" onClick={onComposeClick}>
-                    Compose
+                    <div className="pencil">
+                        <RiPencilLine size={25}/>
+                    </div>
+                    <div className="compose-text">
+                        Compose
+                    </div>
                 </button>  
 
                 <div className="sidebar-content">
