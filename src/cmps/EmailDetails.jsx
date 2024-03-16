@@ -7,7 +7,9 @@ import { emailService } from "../services/email.service"
 export function EmailDetails(){
 
     const [email, setEmail] = useState(null)
+    
     const params = useParams()
+    
     const navigate = useNavigate()
 
     const { removeEmail, markRead , onEditDraft} = useOutletContext()
@@ -31,12 +33,8 @@ export function EmailDetails(){
         navigate(`/${params.folder}`)
     }
 
-
-    if (!email) {
-        console.log(`No Emails`)
-        return
-    }
-
+    if (!email) return <></>
+    
     return (
         <>
             <section className="email-details">

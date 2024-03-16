@@ -1,5 +1,4 @@
 /* Whole Page */
-
 .email-index {
     background-color: #f1f6f9;
     display: grid;
@@ -11,7 +10,6 @@
 }
 
 /* Search & EmailList */
-
 .main-app-section {
     display: grid;
     grid-template-rows: max-content 1fr;

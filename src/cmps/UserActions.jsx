@@ -2,9 +2,6 @@ import { IoMailUnreadOutline } from "react-icons/io5";
 import { IoMailOpenOutline } from "react-icons/io5";
 import { FaRegTrashAlt } from "react-icons/fa";
 
-
-
-
 export function UserActions({email, removeEmail, toggleRead}){
 
     return (

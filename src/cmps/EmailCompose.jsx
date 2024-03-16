@@ -5,7 +5,6 @@ export function EmailCompose({searchParams, exitCompose}){
 
     const [email,setEmail] = useState(null)
 
-    
     useEffect(() => {
         async function loadEmail(){
             if(searchParams.get('compose') === 'new'){
@@ -44,7 +43,6 @@ export function EmailCompose({searchParams, exitCompose}){
                 break;
         }
     }
-    
 
     function onExitCompose(){
         exitCompose()
