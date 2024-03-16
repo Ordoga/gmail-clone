@@ -11,7 +11,7 @@
 }
 
 .email-list li {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.874);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
     height: 40px;
     display: flex;
 }
@@ -21,4 +21,13 @@
     background-color:white;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+}
+
+.list-start {
+    height: 28px;
+    background-color:white;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+
 }

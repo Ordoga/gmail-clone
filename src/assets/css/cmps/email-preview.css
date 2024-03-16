@@ -10,8 +10,6 @@
     align-items: center;
 
     font-size: 14px;
-
-
 }
 
 .unread {
@@ -31,11 +29,14 @@
 }
 
 .email-preview .star-container {
-    display: grid;
+    display: flex;
     width: 40px;
     height: 40px;
     margin-right: 10px;
     margin-left: 10px;
+
+    justify-content: center;
+    align-items: center;
 } 
 
 .email-preview .star {

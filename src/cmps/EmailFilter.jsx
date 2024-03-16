@@ -1,4 +1,4 @@
-import { FaArrowDown } from "react-icons/fa";
+    import { FaArrowDown } from "react-icons/fa";
 import { FaArrowUp } from "react-icons/fa";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 
