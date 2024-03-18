@@ -1,5 +1,28 @@
 /* TODO - Design Email Details */
 
 .email-details {
-    color:rgb(103, 38, 38)
+    display: flex;
+    flex-direction: column;
 }
+
+.email-details-subject {
+    padding-top:20px;
+    padding-bottom:8px;
+    padding-left:72px;
+}
+
+.email-details-subject h1 {
+    height: 28px;
+}
+
+.email-details-from{
+    color: #5e5e5e;
+    font-size: 12px;
+}
+
+.email-details-actions {
+    background-color: antiquewhite;
+    height: 48px;
+    width: 100%;
+}
+

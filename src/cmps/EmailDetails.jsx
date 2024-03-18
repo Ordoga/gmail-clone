@@ -38,13 +38,19 @@ export function EmailDetails(){
     return (
         <>
             <section className="email-details">
-                <Link to={`/${params.folder}`}><h1>{'<- Back'}</h1></Link>
-                <h1>{email.subject}</h1>
-                <h4>From: {email.from}</h4>
-                <h4>To: {email.to}</h4>
-                <p>{email.body}</p>
+                <div className="email-details-actions">Actions</div>
+                <div className="email-details-subject">
+                    <h1>{email.subject}</h1>
+                </div>
+                <div className="email-details-from">
+                    <h4>{`<${email.from}>`}</h4>
+                </div>
+                <div className="email-details body">
+                    <p>{email.body}</p>
+                </div>
                 <button onClick={() => onRemoveItem(email)}>{email.removedAt? `Delete Permenantely` : `Move To Trash`}</button>
                 {!email.sentAt && <button onClick={() => onEditDraft(email.id)}>Edit Draft</button>}
+                <Link to={`/${params.folder}`}><h1>{'<- Back'}</h1></Link>
             </section>
         </>
     )

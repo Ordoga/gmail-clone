@@ -5,6 +5,8 @@ export function EmailCompose({searchParams, exitCompose}){
 
     const [email,setEmail] = useState(null)
 
+    // TODO - Not save draft untill body is written
+
     useEffect(() => {
         async function loadEmail(){
             if(searchParams.get('compose') === 'new'){
@@ -60,7 +62,7 @@ export function EmailCompose({searchParams, exitCompose}){
             <div className="email-compose-window">
                 <div className="new-message-title">
                     New Message
-                    <button class="exit-compose-btn" onClick={onExitCompose}>X</button>
+                    <button className="exit-compose-btn" onClick={onExitCompose}>X</button>
                 </div>
                 
                 <form>
