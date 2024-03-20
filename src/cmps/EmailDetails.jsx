@@ -38,7 +38,7 @@ export function EmailDetails(){
     return (
         <>
             <section className="email-details">
-                <div className="email-details-actions">Actions</div>
+                <div className="email-details-actions">Actions Line</div>
                 <div className="email-details-subject">
                     <h1>{email.subject}</h1>
                 </div>
