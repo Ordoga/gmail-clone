@@ -10,6 +10,7 @@ import { EmailDetails } from './cmps/EmailDetails'
 import { EmailList } from './cmps/EmailList'
 import { UserMsg } from './cmps/UserMsg'
 import { HomePage } from './pages/HomePage'
+import { Dashboard } from './cmps/Dashboard'
 
 export function App() {
     return (
@@ -19,7 +20,7 @@ export function App() {
                     <div className="main-section">
                         <Routes>
                             <Route path="/" element={<HomePage/>} / >
-
+                            <Route path="/dashboard" element={<Dashboard/>} />
                             <Route path="/:folder" element={<EmailIndex/>} >
                                 <Route path="/:folder/" element={<EmailList/>} />
                                 <Route path="/:folder/:emailId" element={<EmailDetails/>} />

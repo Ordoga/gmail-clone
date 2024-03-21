@@ -21,7 +21,7 @@
 }
 
 .email-details-actions {
-    background-color: antiquewhite;
+    background-color: rgb(250, 221, 215);
     display: flex;
     justify-content: center;
     align-items: center;

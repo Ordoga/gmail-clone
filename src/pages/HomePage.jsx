@@ -5,8 +5,9 @@ export function HomePage(){
 
     return (
         <>
-            <div>
+            <div className="homepage">
                 <Link to="/inbox">To Mailbox</Link>
+                <Link to="/dashboard">To Dashboad</Link>
             </div>
         </>
     )

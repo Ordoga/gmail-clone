@@ -50,7 +50,7 @@ export function EmailDetails(){
                 </div>
                 <button onClick={() => onRemoveItem(email)}>{email.removedAt? `Delete Permenantely` : `Move To Trash`}</button>
                 {!email.sentAt && <button onClick={() => onEditDraft(email.id)}>Edit Draft</button>}
-                <Link to={`/${params.folder}`}><h1>{'<- Back'}</h1></Link>
+                <Link to={`/${params.folder}`}><h1>{'<- Go Back'}</h1></Link>
             </section>
         </>
     )
